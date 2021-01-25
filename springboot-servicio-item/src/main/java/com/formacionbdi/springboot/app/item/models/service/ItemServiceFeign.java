@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.formacionbdi.springboot.app.item.clientes.ProductoClienteRest;
 import com.formacionbdi.springboot.app.item.models.Item;
 
 @Service("serviceFeign")
+//@Primary
 public class ItemServiceFeign implements ItemService {
 
 	@Autowired
@@ -32,8 +31,9 @@ public class ItemServiceFeign implements ItemService {
 
 //Esta clase es una alternativa a RestTemplate
 /*
-OPCIÓN A: @Primary: especifica que de los dos sevicios, éste es que el que va a implementar ItemService cuando no
-se pone el nombre del componente
-OPCIÓN B: @Service("serviceFeign") se le pone un nombre al servicio y desde el controlador se la hace referencia 
-con @Qualifier("serviceFeign")
-*/
+ * Dos alternativas cuando hay dos clases que implementan la misma interfaz:
+ * 1. Anotar la clase principal con @Primary para que sea la que se inyecte por
+ *    defecto. 
+ * 2. Pasarle a @Service el identificador de cada clase y, en la implementación,
+ *    anotar con @Qualifier({identificador})
+ */

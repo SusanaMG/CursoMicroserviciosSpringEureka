@@ -16,6 +16,7 @@ public class ItemController {
 	
 	@Autowired
 	@Qualifier("serviceFeign")
+	//@Qualifier("serviceRestTemplate")		//En el caso de usar RestTemplate
 	private ItemService itemService;
 	
 	// Métodos handler del controlador

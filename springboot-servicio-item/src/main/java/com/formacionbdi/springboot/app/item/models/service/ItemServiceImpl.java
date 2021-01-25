@@ -21,7 +21,8 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<Item> findAll() {
-		List<Producto> productos = Arrays.asList(clienteRest.getForObject("http://localhost:8001/listar", Producto[].class));
+		
+		List<Producto> productos = Arrays.asList(clienteRest.getForObject("http://servicio-productos/listar", Producto[].class));
 		return productos.stream().map(p -> new Item(p, 1)).collect(Collectors.toList());
 	}
 	//getForObject(url con el endpoint, clase de tipo de objeto que se quiere obtener). El método devuelve un array.
@@ -30,9 +31,11 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public Item findById(Long id, Integer cantidad) {
+		
 		Map<String, String> pathVariables = new HashMap<String, String>();
 		pathVariables.put("id", id.toString());
-		Producto producto = clienteRest.getForObject("http://localhost:8001/ver/{id}", Producto.class, pathVariables);
+		
+		Producto producto = clienteRest.getForObject("http://servicio-productos/ver/{id}", Producto.class, pathVariables);
 		return new Item(producto, cantidad);
 	}
 		//getForObject(url con el endpoint, clase de tipo de objeto que se quiere obtener, parámetro mapeado)
@@ -40,8 +43,9 @@ public class ItemServiceImpl implements ItemService {
 }
 
 /*
-OPCIÓN A: @Primary: especifica que de los dos sevicios, éste es que el que va a implementar ItemService cuando no
-se pone el nombre del componente
-OPCIÓN B: @Service("serviceRestTemplate") se le pone un nombre al servicio y desde el controlador se la hace referencia 
-con @Qualifier("serviceFeign")
-*/
+ * Dos alternativas cuando hay dos clases que implementan la misma interfaz:
+ * 1. Anotar la clase principal con @Primary para que sea la que se inyecte por
+ *    defecto. 
+ * 2. Pasarle a @Service el identificador de cada clase y, en la implementación,
+ *    anotar con @Qualifier({identificador})
+ */

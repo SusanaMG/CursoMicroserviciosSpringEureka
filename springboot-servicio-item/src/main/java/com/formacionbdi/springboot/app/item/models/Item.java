@@ -11,7 +11,6 @@ public class Item {
 	}
 
 	public Item(Producto producto, Integer cantidad) {
-		super();
 		this.producto = producto;
 		this.cantidad = cantidad;
 	}
