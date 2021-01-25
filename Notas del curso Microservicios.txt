@@ -1,0 +1,72 @@
+***************************************
+** NOTAS DEL CURSO DE MICROSERVICIOS **
+***************************************
+
+** REFERENCIAS WEB DEL CURSO:
+
+UDEMY: Microservicios con Spring Boot y Spring Cloud Netflix Eureka
+https://www.udemy.com/course/microservicios-con-spring-boot-y-spring-cloud/
+
+Spring Tools 4 for Eclipse
+https://spring.io/tools
+
+Spring Data
+https://spring.io/projects/spring-data
+
+Spring Data JPA (BBDD transaccionales)
+https://spring.io/projects/spring-data-jpa
+
+Postman:
+https://www.postman.com/
+https://www.postman.com/downloads/
+
+
+
+
+
+
+
+
+
+
+** SOLUCIÓN DE PROBLEMAS:
+
+Eclipse importación de librerías
+https://es.stackoverflow.com/questions/15479/eclipse-importaci%C3%B3n-de-librer%C3%ADas
+
+Can't create a spring starter project in spring tool suite
+https://stackoverflow.com/questions/47390485/cant-create-a-spring-starter-project-in-spring-tool-suite
+
+Why am I getting Unknown error in line 1 of pom.xml?
+https://stackoverflow.com/questions/56142369/why-am-i-getting-unknown-error-in-line-1-of-pom-xml
+
+M2E:
+https://download.eclipse.org/technology/m2e/releases/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
