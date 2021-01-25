@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import com.formacionbdi.springboot.app.item.models.Item;
 import com.formacionbdi.springboot.app.item.models.Producto;
 
-@Service
+@Service("serviceRestTemplate")
 public class ItemServiceImpl implements ItemService {
 	
 	@Autowired
@@ -38,3 +38,10 @@ public class ItemServiceImpl implements ItemService {
 		//getForObject(url con el endpoint, clase de tipo de objeto que se quiere obtener, parámetro mapeado)
 
 }
+
+/*
+OPCIÓN A: @Primary: especifica que de los dos sevicios, éste es que el que va a implementar ItemService cuando no
+se pone el nombre del componente
+OPCIÓN B: @Service("serviceRestTemplate") se le pone un nombre al servicio y desde el controlador se la hace referencia 
+con @Qualifier("serviceFeign")
+*/
