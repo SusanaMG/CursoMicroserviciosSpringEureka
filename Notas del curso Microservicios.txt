@@ -26,6 +26,9 @@ https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
 Repositorio de Maven:
 https://mvnrepository.com/
 
+Spring Cloud Circuit Breaker:
+https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/1.0.0.RELEASE/reference/html/
+
 
 
 
