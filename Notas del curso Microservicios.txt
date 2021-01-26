@@ -29,7 +29,8 @@ https://mvnrepository.com/
 Spring Cloud Circuit Breaker:
 https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/1.0.0.RELEASE/reference/html/
 
-
+Spring Cloud Netflix:
+https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/
 
 
 
@@ -50,8 +51,8 @@ https://stackoverflow.com/questions/56142369/why-am-i-getting-unknown-error-in-l
 M2E:
 https://download.eclipse.org/technology/m2e/releases/
 
-
-
+El proyecto del microservicio item2 está desarrollado con una versión más antigua de Spring Boot para que pueda
+manejar Hystrix que está deprecated en la versión actual.
 
 
 

@@ -29,7 +29,7 @@ public class ItemController {
 	}
 	
 	//Método alternativo para cuando haa errores
-	@HystrixCommand(fallbackMethod = "metodoAlternativo")
+	@HystrixCommand(fallbackMethod = "metodoAlternativo") 
 	@GetMapping("/ver/{id}/cantidad/{cantidad}")
 	public Item detalle(@PathVariable Long id, @PathVariable Integer cantidad) {
 		return itemService.findById(id, cantidad);

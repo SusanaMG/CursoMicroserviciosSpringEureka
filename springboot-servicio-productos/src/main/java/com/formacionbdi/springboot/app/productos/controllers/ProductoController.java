@@ -37,15 +37,23 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/ver/{id}")
-	public Producto detalle(@PathVariable Long id) throws Exception {
+	public Producto detalle(@PathVariable Long id) {
 		Producto producto = productoService.findById(id);
 		//producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
 		producto.setPort(port);
 		
 		//EXCEPCIÓN PARA COMPROBAR EL FUNCIONAMIENTO DE HYSTRIX: MANEJO DE ERRORES
+		//Colocar throws Exception en la declaración del método
 		/*
 		 * boolean ok = false ; if(ok == false) { throw new
 		 * Exception(" No se pudo cargar el producto"); }
+		 */
+		
+		//REALIZACIÓN DE UNA PAUSA (THREAD.SLEEP) PARA COMPROBAR EL FUNCIONAMIENTO DE HYSTRIX
+		/*
+		 * try { Thread.sleep(2000L); //Timeout de 2 segundos } catch
+		 * (InterruptedException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
 		 */
 		
 		return producto;
