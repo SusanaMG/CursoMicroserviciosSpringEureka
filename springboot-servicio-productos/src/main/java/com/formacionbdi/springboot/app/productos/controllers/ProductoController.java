@@ -42,10 +42,11 @@ public class ProductoController {
 		//producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
 		producto.setPort(port);
 		
-//		boolean ok = false;
-//		if(ok == false) {
-//			throw new Exception(" No se pudo cargar el producto");
-//		}
+		//EXCEPCIÓN PARA COMPROBAR EL FUNCIONAMIENTO DE HYSTRIX: MANEJO DE ERRORES
+		/*
+		 * boolean ok = false ; if(ok == false) { throw new
+		 * Exception(" No se pudo cargar el producto"); }
+		 */
 		
 		return producto;
 	}
