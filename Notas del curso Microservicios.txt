@@ -32,6 +32,10 @@ https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/1.0.0.RE
 Spring Cloud Netflix:
 https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/
 
+Zuul - Portal de entrada - Filtros que manejan el ciclo de vida:
+PRE ==> Se ejecuta antes de que el request sea enrutado  ==> Se usa para pasar datos al request.
+POST ==> Se ejecuta después de que el request haya sido enrutado  ==> Se usa para modificar la respuesta (típicamente las cabeceras). 
+ROUTE ==> Se ejecuta durante el enrutado del request, aquí se resuelve la ruta  ==> Se usa para la comunicación con el microservicio.
 
 
 
