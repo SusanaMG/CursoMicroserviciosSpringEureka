@@ -50,11 +50,14 @@ public class ProductoController {
 		 */
 		
 		//REALIZACIÓN DE UNA PAUSA (THREAD.SLEEP) PARA COMPROBAR EL FUNCIONAMIENTO DE HYSTRIX
-		/*
-		 * try { Thread.sleep(2000L); //Timeout de 2 segundos } catch
-		 * (InterruptedException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 */
+		
+		/*try {
+			Thread.sleep(2000L);			//Timeout de 2 segundos 
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		*/
 		
 		return producto;
 	}
