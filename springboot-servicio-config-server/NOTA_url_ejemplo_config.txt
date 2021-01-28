@@ -1,0 +1,17 @@
+EJEMPLOS DE URLS PARA PONER EN EL POSTMAN:
+
+** Levantar el servicio config para revisar los ficheros properties y su localización en git o github:
+
+localhost:8888/servicio-items/default
+localhost:8888/servicio-items/dev
+localhost:8888/servicio-items/prod
+
+localhost:8888/servicio-items2/default
+localhost:8888/servicio-items2/dev
+
+
+** Levantar los servicios: config - eureka - item - item2 - zuul
+(No funciona porque tengo el código comentado)
+
+localhost:8090/api/items/obtener-config
+localhost:8090/api/items2/obtener-config
