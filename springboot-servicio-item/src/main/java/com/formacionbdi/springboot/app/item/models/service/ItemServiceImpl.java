@@ -1,4 +1,4 @@
-package com.formacionbdi.springboot.app.item.models.service;
+ package com.formacionbdi.springboot.app.item.models.service;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,11 +7,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.formacionbdi.springboot.app.item.models.Item;
 import com.formacionbdi.springboot.app.item.models.Producto;
+
 
 @Service("serviceRestTemplate")
 public class ItemServiceImpl implements ItemService {
@@ -32,6 +36,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public Item findById(Long id, Integer cantidad) {
 		
+		//Mapeo del valor del id con HashMap
 		Map<String, String> pathVariables = new HashMap<String, String>();
 		pathVariables.put("id", id.toString());
 		
@@ -39,6 +44,42 @@ public class ItemServiceImpl implements ItemService {
 		return new Item(producto, cantidad);
 	}
 		//getForObject(url con el endpoint, clase de tipo de objeto que se quiere obtener, parámetro mapeado)
+	
+	@Override
+	public Producto save(Producto producto) {
+		
+		HttpEntity<Producto> body = new HttpEntity<Producto>(producto);
+		
+		ResponseEntity<Producto> response = clienteRest.exchange("http://servicio-productos/crear", HttpMethod.POST, body, Producto.class);
+		Producto productoResponse = response.getBody();
+		
+		return productoResponse;
+	}
+
+	@Override
+	public Producto update(Producto producto, Long id) {
+		
+		//Mapeo del valor del id con HashMap
+		Map<String, String> pathVariables = new HashMap<String, String>();
+		pathVariables.put("id", id.toString());
+		
+		HttpEntity<Producto> body = new HttpEntity<Producto>(producto);
+		ResponseEntity<Producto> response = clienteRest.exchange("http://servicio-productos/editar/{id}",
+				HttpMethod.PUT, body, Producto.class, pathVariables);
+
+		return response.getBody();
+	}
+	
+	
+	@Override
+	public void delete(Long id) {
+		
+		//Mapeo del valor del id con HashMap
+		Map<String, String> pathVariables = new HashMap<String, String>();
+		pathVariables.put("id", id.toString());
+		
+		clienteRest.delete("http://servicio-productos/eliminar/{id}", pathVariables);
+	}
 
 }
 
@@ -49,3 +90,23 @@ public class ItemServiceImpl implements ItemService {
  * 2. Pasarle a @Service el identificador de cada clase y, en la implementación,
  *    anotar con @Qualifier({identificador})
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

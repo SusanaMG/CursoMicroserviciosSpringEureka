@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.formacionbdi.springboot.app.item2.clientes.ProductoClienteRest;
 import com.formacionbdi.springboot.app.item2.models.Item;
+import com.formacionbdi.springboot.app.item2.models.Producto;
 
 @Service("serviceFeign")
 //@Primary
@@ -25,6 +26,24 @@ public class ItemServiceFeign implements ItemService {
 	@Override
 	public Item findById(Long id, Integer cantidad) {
 		return new Item(clienteFeign.detalle(id), cantidad);
+	}
+
+	@Override
+	public Producto save(Producto producto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Producto update(Producto producto, Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
