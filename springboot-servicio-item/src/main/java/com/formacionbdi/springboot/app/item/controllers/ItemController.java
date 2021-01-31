@@ -31,20 +31,20 @@ public class ItemController {
 	
 	private Logger log = LoggerFactory.getLogger(ItemController.class);
 	
-	/*
+	
 	@Autowired
 	private Environment env;
-	*/
+	
 	
 	@Autowired
 	@Qualifier("serviceFeign")
 	//@Qualifier("serviceRestTemplate")		//En el caso de usar RestTemplate
 	private ItemService itemService;
 	
-	/*
+	
 	@Value("${configuracion.texto}")
 	private String texto;
-	*/
+	
 
 	// Métodos handler del controlador
 	
@@ -58,7 +58,7 @@ public class ItemController {
 	return itemService.findById(id, cantidad);
 	}
 	
-	/*
+	
 	@GetMapping("/obtener-config")
 	public ResponseEntity<?> obtenerConfig(@Value("${server.port}") String puerto) {
 
@@ -78,7 +78,7 @@ public class ItemController {
 		
 		return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
 	}	
-	*/
+	
 	
 	@PostMapping("/crear")
 	@ResponseStatus(HttpStatus.CREATED)
