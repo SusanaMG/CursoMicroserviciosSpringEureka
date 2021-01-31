@@ -16,13 +16,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.formacionbdi.springboot.app.item.models.Item;
-import com.formacionbdi.springboot.app.item.models.Producto;
+//import com.formacionbdi.springboot.app.item.models.Producto;
 import com.formacionbdi.springboot.app.item.models.service.ItemService;
 
 @RefreshScope
@@ -31,20 +31,20 @@ public class ItemController {
 	
 	private Logger log = LoggerFactory.getLogger(ItemController.class);
 	
-	
+	/*
 	@Autowired
 	private Environment env;
-	
+	*/
 	
 	@Autowired
 	@Qualifier("serviceFeign")
 	//@Qualifier("serviceRestTemplate")		//En el caso de usar RestTemplate
 	private ItemService itemService;
 	
-	
+	/*
 	@Value("${configuracion.texto}")
 	private String texto;
-	
+	*/
 
 	// Métodos handler del controlador
 	
@@ -58,7 +58,7 @@ public class ItemController {
 	return itemService.findById(id, cantidad);
 	}
 	
-	
+	/*
 	@GetMapping("/obtener-config")
 	public ResponseEntity<?> obtenerConfig(@Value("${server.port}") String puerto) {
 
@@ -78,7 +78,7 @@ public class ItemController {
 		
 		return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
 	}	
-	
+	*/
 	
 	
 	/*
