@@ -23,6 +23,12 @@ import com.formacionbdi.springboot.app.item2.models.Producto;
 import com.formacionbdi.springboot.app.item2.models.service.ItemService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
+/*
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+*/
+
 @RefreshScope
 @RestController
 public class ItemController {
@@ -98,6 +104,27 @@ public class ItemController {
 	public Producto crear(@RequestBody Producto producto) {
 		return itemService.save(producto);
 	}
-	*/
 	
+	*/
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
