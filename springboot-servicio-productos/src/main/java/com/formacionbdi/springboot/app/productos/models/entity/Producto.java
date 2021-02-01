@@ -1,3 +1,7 @@
+//Ya no se utiliza esta clase puesto que usamos la libreria commons. Se podría eliminar
+
+
+/*
 package com.formacionbdi.springboot.app.productos.models.entity;
 
 import java.io.Serializable;
@@ -76,3 +80,4 @@ public class Producto implements Serializable {
 	}
 
 }
+*/
