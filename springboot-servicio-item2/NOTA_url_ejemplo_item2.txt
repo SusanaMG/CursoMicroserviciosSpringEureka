@@ -1,0 +1,21 @@
+EJEMPLOS DE URLS PARA PONER EN EL POSTMAN:
+
+** Levantar los servicios: eureka - productos - item2 - zuul
+
+localhost:8003/listar
+localhost:8003/ver/2/cantidad/3
+
+
+** Levantar los servicios: config - eureka - productos - item2 - zuul
+
+* Si está activo el entorno default en la propiedad spring.profiles.active de bootstrap.properties
+(es decir si no están actidos dev ni prod):
+localhost:8006/listar
+localhost:8006/ver/2/cantidad/3
+
+
+* Si está activo el entorno dev en la propiedad spring.profiles.active de bootstrap.properties:
+localhost:8053/listar
+localhost:8053/ver/2/cantidad/3
+localhost:8053/obtener-config
+

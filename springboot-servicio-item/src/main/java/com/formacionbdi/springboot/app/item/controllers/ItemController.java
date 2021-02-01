@@ -81,33 +81,7 @@ public class ItemController {
 	*/
 	
 	
-	/*
-	@PostMapping("/crear")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Producto crear(@RequestBody Producto producto) {
-		return itemService.save(producto);
-	}
-	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+// NO CONTINUO CON EL CODIGO CON ESTE PROYECTO. CONTINUO EL CURSO CON ITEM2.
 	
 	
 	

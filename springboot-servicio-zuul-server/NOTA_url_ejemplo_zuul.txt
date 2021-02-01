@@ -7,3 +7,5 @@ localhost:8090/api/items/ver/2/cantidad/3
 
 localhost:8090/api/items2/listar
 localhost:8090/api/items2/ver/2/cantidad/3
+
+localhost:8090/api/items2/obtener-config

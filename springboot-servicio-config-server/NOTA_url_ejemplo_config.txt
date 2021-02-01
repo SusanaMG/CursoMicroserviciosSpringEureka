@@ -10,8 +10,7 @@ localhost:8888/servicio-items2/default
 localhost:8888/servicio-items2/dev
 
 
-** Levantar los servicios: config - eureka - item - item2 - zuul
-(No funciona porque tengo el código comentado)
+** Levantar los servicios: config - eureka - (item*) - item2 - zuul
+(*No funciona porque tengo el código comentado)
 
-localhost:8090/api/items/obtener-config
 localhost:8090/api/items2/obtener-config
