@@ -53,6 +53,8 @@ public class ItemServiceImpl implements ItemService {
 		
 		return productoResponse;
 	}
+		//exchange(url con el endpoint, tipo de la petición, request con el objeto, tipo de dato en el que se quiere recibir el objeto)
+
 
 	@Override
 	public Producto update(Producto producto, Long id) {
@@ -67,7 +69,6 @@ public class ItemServiceImpl implements ItemService {
 
 		return response.getBody();
 	}
-	
 	
 	@Override
 	public void delete(Long id) {
