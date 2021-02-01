@@ -36,14 +36,12 @@ public class ItemController {
 	
 	private Logger log = LoggerFactory.getLogger(ItemController.class);
 	
-	
 	@Autowired
 	private Environment env;
 	
-	
 	@Autowired
-	//@Qualifier("serviceFeign")
-	@Qualifier("serviceRestTemplate")		//En el caso de usar RestTemplate
+	@Qualifier("serviceFeign")
+	//@Qualifier("serviceRestTemplate")		//En el caso de usar RestTemplate
 	private ItemService itemService;
 	
 	

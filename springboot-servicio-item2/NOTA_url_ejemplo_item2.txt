@@ -27,6 +27,10 @@ localhost:8053/obtener-config
 ****************************************************************************
 **** CRUD:
 
+** Levantar los servicios: config - eureka - productos - item2 - zuul
+
+CASO: RestTemplate
+
 CREAR:
 Método: POST
 Body: raw --> Seleccionar JSON
@@ -97,8 +101,66 @@ Comprobar ejecutando: localhost:8090/api/items2/listar
 
 ****************************************************************************
 ****************************************************************************
+**** CRUD:
 
+** Levantar los servicios: config - eureka - productos - item2 - zuul
 
+CASO: Feign
 
+CREAR:
+Método: POST
+Body: raw --> Seleccionar JSON
+
+{
+    "nombre": "Mesa comedor", 
+    "precio": 3700,
+    "createAt": "2019-06-18"
+}
+Ejecutar: localhost:8090/api/items2/crear
+También se puede ejecutar: localhost:8053/crear
+Devuelve: 
+{
+    "id": 11,
+    "nombre": "Mesa comedor",
+    "precio": 3700.0,
+    "createAt": "2019-06-18T00:00:00.000+00:00",
+    "port": null
+}
+Comprobar ejecutando: localhost:8090/api/items2/listar
+
+****************************************************************************
+EDITAR:
+Método: PUT
+Body: raw --> Seleccionar JSON
+{
+    "nombre": "Silla comedor", 
+    "precio": 700
+}
+Ejecutar: localhost:8090/api/items2/editar/11
+También se puede ejecutar: localhost:8053/editar/11
+Devuelve: 
+{
+    "id": 11,
+    "nombre": "Silla comedor",
+    "precio": 700.0,
+    "createAt": "2019-06-18T00:00:00.000+00:00",
+    "port": null
+}
+
+Comprobar ejecutando: localhost:8090/api/items2/listar
+
+****************************************************************************
+ELIMINAR:
+Método: DELETE
+Body: none
+
+Ejecutar: localhost:8090/api/items2/eliminar/11
+También se puede ejecutar: localhost:8053/eliminar/11
+Devuelve: nada
+
+Comprobar ejecutando: localhost:8090/api/items2/listar
+
+****************************************************************************
+****************************************************************************
 
 
