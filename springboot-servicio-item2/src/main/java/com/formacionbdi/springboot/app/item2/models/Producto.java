@@ -1,3 +1,6 @@
+//Ya no se utiliza esta clase puesto que usamos la libreria commons. Se podría eliminar
+
+/*
 package com.formacionbdi.springboot.app.item2.models;
 
 import java.util.Date;
@@ -53,3 +56,4 @@ public class Producto {
 	}
 	
 }
+*/

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.formacionbdi.springboot.app.item2.models.Item;
-import com.formacionbdi.springboot.app.item2.models.Producto;
+import com.formacionbdi.springboot.app.commons.models.entity.Producto;
 import com.formacionbdi.springboot.app.item2.models.service.ItemService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
