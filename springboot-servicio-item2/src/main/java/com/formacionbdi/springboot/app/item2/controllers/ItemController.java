@@ -42,8 +42,8 @@ public class ItemController {
 	
 	
 	@Autowired
-	@Qualifier("serviceFeign")
-	//@Qualifier("serviceRestTemplate")		//En el caso de usar RestTemplate
+	//@Qualifier("serviceFeign")
+	@Qualifier("serviceRestTemplate")		//En el caso de usar RestTemplate
 	private ItemService itemService;
 	
 	

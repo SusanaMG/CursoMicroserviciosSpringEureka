@@ -1,5 +1,9 @@
 EJEMPLOS DE URLS PARA PONER EN EL POSTMAN:
 
+****************************************************************************
+****************************************************************************
+Método: GET
+
 Levantar los servicios: config - eureka - productos - item - item2 - zuul
 
 localhost:8090/api/items/listar
@@ -9,3 +13,6 @@ localhost:8090/api/items2/listar
 localhost:8090/api/items2/ver/2/cantidad/3
 
 localhost:8090/api/items2/obtener-config
+
+****************************************************************************
+****************************************************************************

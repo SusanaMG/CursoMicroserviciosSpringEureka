@@ -1,5 +1,9 @@
 EJEMPLOS DE URLS PARA PONER EN EL POSTMAN:
 
+****************************************************************************
+****************************************************************************
+Método: GET
+
 ** Levantar el servicio config para revisar los ficheros properties y su localización en git o github:
 
 localhost:8888/servicio-items/default
@@ -14,3 +18,6 @@ localhost:8888/servicio-items2/dev
 (*No funciona porque tengo el código comentado)
 
 localhost:8090/api/items2/obtener-config
+
+****************************************************************************
+****************************************************************************

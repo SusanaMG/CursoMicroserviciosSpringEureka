@@ -1,5 +1,9 @@
 EJEMPLOS DE URLS PARA PONER EN EL POSTMAN:
 
+****************************************************************************
+****************************************************************************
+Método: GET
+
 ** Levantar los servicios: eureka - productos - item2 - zuul
 
 localhost:8003/listar
@@ -18,4 +22,83 @@ localhost:8006/ver/2/cantidad/3
 localhost:8053/listar
 localhost:8053/ver/2/cantidad/3
 localhost:8053/obtener-config
+
+****************************************************************************
+****************************************************************************
+**** CRUD:
+
+CREAR:
+Método: POST
+Body: raw --> Seleccionar JSON
+
+{
+    "nombre": "Mesa comedor", 
+    "precio": 3500,
+    "createAt": "2019-06-14"
+}
+Ejecutar: localhost:8090/api/items2/crear
+También se puede ejecutar: localhost:8053/crear
+Devuelve: 
+{
+    "id": 11,
+    "nombre": "Mesa comedor",
+    "precio": 3500.0,
+    "createAt": "2019-06-14T00:00:00.000+00:00",
+    "port": null
+}
+Comprobar ejecutando: localhost:8090/api/items2/listar
+
+-----------------------------------------------------------------------------
+Otro ejemplo:
+{
+    "nombre": "Mesa oficina", 
+    "precio": 2500,
+    "createAt": "2019-06-14"
+}
+Devuelve:
+{
+    "id": 12,
+    "nombre": "Mesa oficina",
+    "precio": 2500.0,
+    "createAt": "2019-06-14T00:00:00.000+00:00",
+    "port": null
+}
+
+****************************************************************************
+EDITAR:
+Método: PUT
+Body: raw --> Seleccionar JSON
+{
+    "nombre": "Silla oficina", 
+    "precio": 500
+}
+Ejecutar: localhost:8090/api/items2/editar/11
+También se puede ejecutar: localhost:8053/editar/11
+Devuelve: 
+{
+    "id": 11,
+    "nombre": "Silla oficina",
+    "precio": 500.0,
+    "createAt": "2019-06-14T00:00:00.000+00:00",
+    "port": null
+}
+Comprobar ejecutando: localhost:8090/api/items2/listar
+
+****************************************************************************
+ELIMINAR:
+Método: DELETE
+Body: none
+
+Ejecutar: localhost:8090/api/items2/eliminar/11
+También se puede ejecutar: localhost:8053/eliminar/11
+Devuelve: nada
+
+Comprobar ejecutando: localhost:8090/api/items2/listar
+
+****************************************************************************
+****************************************************************************
+
+
+
+
 
