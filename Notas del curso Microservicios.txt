@@ -76,9 +76,15 @@ Tiene 2 partes: Authorization Server y el Resource Server (o servidor de recurso
   es el que envía el token de acceso en las cabeceras. 
 	- Ruta url ejemplo: GET/api/clientes -> En la cabecera se envía el atributo Authorization Bearer access_token
 
-
-
-
+Spring Data JPA: 
+https://spring.io/projects/spring-data-jpa
+Spring Data JPA: Working with Spring Data Repositories:
+https://docs.spring.io/spring-data/jpa/docs/2.4.3/reference/html/#repositories
+Para crear los métodos de consulta personalizados:
+Spring Data JPA: Working with Spring Data Repositories: Defining Query Methods:
+https://docs.spring.io/spring-data/jpa/docs/2.4.3/reference/html/#repositories.query-methods.details
+Spring Data JPA: JPA Repositories: Query Methods:
+https://docs.spring.io/spring-data/jpa/docs/2.4.3/reference/html/#jpa.query-methods
 
 
 
