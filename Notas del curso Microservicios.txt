@@ -85,6 +85,19 @@ Spring Data JPA: Working with Spring Data Repositories: Defining Query Methods:
 https://docs.spring.io/spring-data/jpa/docs/2.4.3/reference/html/#repositories.query-methods.details
 Spring Data JPA: JPA Repositories: Query Methods:
 https://docs.spring.io/spring-data/jpa/docs/2.4.3/reference/html/#jpa.query-methods
+ 
+
+Estándar HATEOAS es la abreviación de Hypermedia as the Engine of Application State(hipermedia como motor del estado de la aplicación): es una restricción de la 
+arquitectura Api Rest. Cuando el servidor retorna el JSON también retorna otra información en forma de hipervínculos y recursos del API que le indica al cliente
+cómo navegar,cómo encontrar la información.
+
+
+
+
+
+
+
+
 
 
 

@@ -2,9 +2,11 @@ package com.formacionbdi.springboot.app.usuarios.models.dao;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.formacionbdi.springboot.app.usuarios.models.entity.Usuario;
 
+@RepositoryRestResource(path="usuarios")
 public interface UsuarioDao extends PagingAndSortingRepository<Usuario, Long>{
 	
 	//CONSULTAS PERSONALIZADAS
@@ -36,5 +38,17 @@ public interface UsuarioDao extends PagingAndSortingRepository<Usuario, Long>{
 	//CONSULTA NATIVA SQL (orientada a tablas y campos)
 	@Query(value = "AQUÍ_VA_LA_SELECT_CON_LA_CONSULTA_NATIVA", nativeQuery = true) 	
 	public Usuario obtenerPorUsernameNativo(String username);
+	
+	
+	//CRUD
+	/*
+	 * Se está usando el API Rest repository y se hace de forma automática gracias a la 
+	 * anotación @RepositoryRestResource(path="usuarios")
+	 * Ver cómo se ejecuta en el fichero del proyecto: NOTA_url_ejemplo_item2.txt
+	 */
+
+	
+	
+	
 	
 }

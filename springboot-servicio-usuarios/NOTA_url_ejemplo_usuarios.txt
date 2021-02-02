@@ -1,0 +1,133 @@
+EJEMPLOS DE URLS PARA PONER EN EL POSTMAN:
+
+****************************************************************************
+****************************************************************************
+Método: GET
+
+** Levantar los servicios: eureka - usuarios - zuul
+
+localhost:8090/api/usuarios/usuarios
+localhost:8090/api/usuarios/usuarios/2
+
+****************************************************************************
+****************************************************************************
+**** CRUD:
+
+CASO: está usando el API Rest repository y se hace de forma automática gracias a la
+anotación @RepositoryRestResource(path="usuarios")
+
+** Levantar los servicios: eureka - usuarios - zuul
+
+CREAR:
+Método: POST
+Body: raw --> Seleccionar JSON
+
+
+{
+    "username": "pepe",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "id":1, "nombre": "ROLE_USER"
+        },
+        {
+            "id":2, "nombre": "ROLE_ADMIN"
+        }
+    ] 
+}
+Ejecutar: localhost:8090/api/usuarios/usuarios
+Devuelve: 
+{
+    "username": "pepe",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "nombre": "ROLE_USER"
+        },
+        {
+            "nombre": "ROLE_ADMIN"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:51514/usuarios/3"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:51514/usuarios/3"
+        }
+    }
+}
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarios/usuarios/3
+
+****************************************************************************
+EDITAR:
+Método: PUT
+Body: raw --> Seleccionar JSON
+{
+    "username": "jose",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "id":1, "nombre": "ROLE_USER"
+        },
+        {
+            "id":2, "nombre": "ROLE_ADMIN"
+        }
+    ] 
+}
+Ejecutar: localhost:8090/api/usuarios/usuarios/3
+Devuelve: 
+{
+    "username": "jose",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "nombre": "ROLE_USER"
+        },
+        {
+            "nombre": "ROLE_ADMIN"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:51514/usuarios/3"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:51514/usuarios/3"
+        }
+    }
+}
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarios/usuarios/3
+
+****************************************************************************
+ELIMINAR:
+Método: DELETE
+Body: none
+
+Ejecutar: localhost:8090/api/usuarios/usuarios/3
+Devuelve: Status: 204 No Content
+
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarios/usuarios/3
+Devuelve: Status: 404 Not found
+
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarios/usuarios
+Devuelve: no aparece el usuario 3
+
+****************************************************************************
+

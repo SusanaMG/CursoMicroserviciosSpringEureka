@@ -49,8 +49,8 @@ Devuelve:
     "precio": 3500.0,
     "createAt": "2019-06-14T00:00:00.000+00:00",
     "port": null
-}
-Comprobar ejecutando: localhost:8090/api/items2/listar
+} 
+Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
 
 -----------------------------------------------------------------------------
 Otro ejemplo:
@@ -86,7 +86,7 @@ Devuelve:
     "createAt": "2019-06-14T00:00:00.000+00:00",
     "port": null
 }
-Comprobar ejecutando: localhost:8090/api/items2/listar
+Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
 
 ****************************************************************************
 ELIMINAR:
@@ -97,7 +97,7 @@ Ejecutar: localhost:8090/api/items2/eliminar/11
 También se puede ejecutar: localhost:8053/eliminar/11
 Devuelve: nada
 
-Comprobar ejecutando: localhost:8090/api/items2/listar
+Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
 
 ****************************************************************************
 ****************************************************************************
@@ -126,7 +126,7 @@ Devuelve:
     "createAt": "2019-06-18T00:00:00.000+00:00",
     "port": null
 }
-Comprobar ejecutando: localhost:8090/api/items2/listar
+Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
 
 ****************************************************************************
 EDITAR:
@@ -147,7 +147,7 @@ Devuelve:
     "port": null
 }
 
-Comprobar ejecutando: localhost:8090/api/items2/listar
+Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
 
 ****************************************************************************
 ELIMINAR:
@@ -158,7 +158,7 @@ Ejecutar: localhost:8090/api/items2/eliminar/11
 También se puede ejecutar: localhost:8053/eliminar/11
 Devuelve: nada
 
-Comprobar ejecutando: localhost:8090/api/items2/listar
+Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
 
 ****************************************************************************
 ****************************************************************************
