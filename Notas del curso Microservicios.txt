@@ -32,12 +32,49 @@ https://cloud.spring.io/spring-cloud-static/spring-cloud-circuitbreaker/1.0.0.RE
 Spring Cloud Netflix:
 https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/
 
-Zuul - Portal de entrada - Filtros que manejan el ciclo de vida:
+** Zuul - Portal de entrada - Filtros que manejan el ciclo de vida:
 PRE ==> Se ejecuta antes de que el request sea enrutado  ==> Se usa para pasar datos al request.
 POST ==> Se ejecuta después de que el request haya sido enrutado  ==> Se usa para modificar la respuesta (típicamente las cabeceras). 
 ROUTE ==> Se ejecuta durante el enrutado del request, aquí se resuelve la ruta  ==> Se usa para la comunicación con el microservicio.
 
+** JSON Web Tokens:
+https://jwt.io/
+JWT: es un estándar abierto para implementar seguridad en las aplicaciones API Rest basado en tokens. El estándar RFC 7519 es una forma para representar
+de forma segura reclamaciones que envía un cliente a un servidor y el servidor interpreta estas reclamaciones o claims que contienen datos (pero que no
+sea información sensible). Este estándar permite decodificar ese código, verificar si es válido y también se encarga de generar este código a través 
+de una palabra código secreto que tenemos configurado en nuestro servidor.
 
+PARTES DEL JSON WEB TOKEN:
+Ejemplo: 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSM
+eKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+(es decir, PARTE_1.PARTE_2.PARTE_3)
+- PARTE_1: CABECERA (HEADER) con información sobre el algoritmo sobre el cual se va a codificar el token y el por otro lado el tipo de token.
+- PARTE_2: LOS DATOS O INFORMACIÓN DEL USUARIO(PAYLOAD): "sub" que representa un identificador (ej. username), y luego el resto de datos (nombre, apellido, 
+  email, etc), una fecha de creación y opcionalmente una fecha de expiración, información sobre los permisos, privilegios o roles del usuario.
+- PARTE_3: VERIFICACIÓN DE LA FIRMA(VERIFY SIGNATURE), es la parte de seguridad. Requiere de un código secreto y sirve para verificar que el token no ha sido 
+  manipulado. Codifica el header y los datos. También lo firma. 
+
+** Spring Security:
+https://spring.io/projects/spring-security
+https://spring.io/projects/spring-security-oauth
+* Spring Security provee caracterçisticas de seguridad para aplicaciones empresariales Java EE.
+* Spring Security maneja componentes de "Autenticación" y "Autorización".
+- Autenticación: se refiere al proceso de establecer un principal. Un principal significa un usuario, dispositivo o algún otro sistema el cual puede ejecutar 
+  alguna acción en nuestro sistema. En general, permite a los principales autenticarse en base a cualquier proveedor de seguridad por ejemplo LDAP, Base de 
+	datos relacional principalmente y Autenticación HTTP. 
+- Autorización: se refiere al proceso de decidir si se otorga acceso a un usuario para realizar una acción dentro de la aplicación, es decir, para controlar 
+  el acceso a los recursos de la aplicaciónpor medio de la asignación de roles y permisosa grupos de usuarios.
+
+** OAuth2 de spring es un framework, es un protocolo estándar de autorización que permite a las aplicaciones de terceros (angular, react, android) autenticarse
+con cuentas de usuario que están en otra aplicación, en un servicio HTTP externo, sin compartir toda la información del usuario y menos las credenciales. 
+Tiene 2 partes: Authorization Server y el Resource Server (o servidor de recurso). 
+- Authorization Server se encarga de la autenticaión del usuario, si es válida genera un token JWT de acceso y se lo provee al usuario.
+	- Ruta url: POST/auth/token -> En la cabecera se pasa Authorization y Content-Type. En cuerpo se pasan las credenciales (grant_type, username y password).
+- Resource Server se encarga de administrar los permisos y accesos a nuestras páginas y Api Rest (end points) que están con seguridad. Habilita el filtro de 
+  spring OAuth2AuthenticationProcessingFilter que se utiliza para validar y dar acceso a una petición Http (o request) que viene desde un cliente. Este request
+  es el que envía el token de acceso en las cabeceras. 
+	- Ruta url ejemplo: GET/api/clientes -> En la cabecera se envía el atributo Authorization Bearer access_token
 
 
 
