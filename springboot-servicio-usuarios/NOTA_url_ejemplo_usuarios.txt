@@ -14,15 +14,15 @@ localhost:8090/api/usuarios/usuarios/2
 ** BÚSQUEDAS:
 ** Levantar los servicios: eureka - usuarios - zuul
 
-* Sin anotación @RestResource:
+* Sin anotación @RestResource (mirar en código si está activo):
 localhost:8090/api/usuarios/usuarios/search/findByUsername?username=admin
 localhost:8090/api/usuarios/usuarios/search/findByUsername?username=susana
 localhost:8090/api/usuarios/usuarios/search/obtenerPorUsername?username=admin
 localhost:8090/api/usuarios/usuarios/search/obtenerPorUsername?username=susana
 
-* Con anotación @RestResource:
-localhost:8090/api/usuarios/usuarios/search/buscar-username?nombre=admin
-localhost:8090/api/usuarios/usuarios/search/buscar-username?nombre=susana
+* Con anotación @RestResource (mirar en código si está activo):
+localhost:8090/api/usuarios/usuarios/search/buscar-username?username=admin
+localhost:8090/api/usuarios/usuarios/search/buscar-username?username=susana
 localhost:8090/api/usuarios/usuarios/search/buscar-username?username=admin 
 
 
