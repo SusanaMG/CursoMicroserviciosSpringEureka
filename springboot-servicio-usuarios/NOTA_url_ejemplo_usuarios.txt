@@ -147,4 +147,65 @@ Comprobar ejecutando en modo GET: localhost:8090/api/usuarios/usuarios
 Devuelve: no aparece el usuario 3
 
 ****************************************************************************
+****************************************************************************
+**** TRAS CREAR LA CLASE RepositoryConfig:
+
+Método: GET
+
+** Levantar los servicios: eureka - usuarios - zuul
+
+localhost:8090/api/usuarios/usuarios
+
+Devuelve:
+{
+    "id": 1,
+    "username": "susana",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Susana",
+    "apellido": "MG",
+    "email": "susana@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:55166/usuarios/1"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:55166/usuarios/1"
+        }
+    }
+}
+
+****************************************************************************
+ANTES DEVOLVÍA (sin id):
+{
+    "username": "susana",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Susana",
+    "apellido": "MG",
+    "email": "susana@correo.com",
+    "roles": [
+        {
+            "nombre": "ROLE_USER"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:55166/usuarios/1"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:55166/usuarios/1"
+        }
+    }
+}
+
+****************************************************************************
+****************************************************************************
+
 
