@@ -1,0 +1,209 @@
+EJEMPLOS DE URLS PARA PONER EN EL POSTMAN:
+
+****************************************************************************
+****************************************************************************
+Método: GET
+
+** Levantar los servicios: eureka - usuariosalt - zuul
+
+localhost:8090/api/usuariosalt/usuariosalt
+localhost:8090/api/usuariosalt/usuariosalt/2
+
+
+
+** BÚSQUEDAS:
+** Levantar los servicios: eureka - usuariosalt - zuul
+
+* Sin anotación @RestResource (mirar en código si está activo):
+localhost:8090/api/usuariosalt/usuariosalt/search/findByUsername?username=admin
+localhost:8090/api/usuariosalt/usuariosalt/search/findByUsername?username=susana
+localhost:8090/api/usuariosalt/usuariosalt/search/obtenerPorUsername?username=admin
+localhost:8090/api/usuariosalt/usuariosalt/search/obtenerPorUsername?username=susana
+
+* Con anotación @RestResource (mirar en código si está activo):
+localhost:8090/api/usuariosalt/usuariosalt/search/buscar-username?username=admin
+localhost:8090/api/usuariosalt/usuariosalt/search/buscar-username?username=susana
+localhost:8090/api/usuariosalt/usuariosalt/search/buscar-username?username=admin 
+
+
+****************************************************************************
+****************************************************************************
+**** CRUD:
+
+CASO: está usando el API Rest repository y se hace de forma automática gracias a la
+anotación @RepositoryRestResource(path="usuariosalt")
+
+** Levantar los servicios: eureka - usuariosalt - zuul
+
+CREAR:
+Método: POST
+Body: raw --> Seleccionar JSON
+{
+    "username": "pepe",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "id":1, "nombre": "ROLE_USER"
+        },
+        {
+            "id":2, "nombre": "ROLE_ADMIN"
+        }
+    ] 
+}
+Ejecutar: localhost:8090/api/usuariosalt/usuariosalt
+Devuelve: 
+{
+    "username": "pepe",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "nombre": "ROLE_USER"
+        },
+        {
+            "nombre": "ROLE_ADMIN"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:49971/usuariosalt/3"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:49971/usuariosalt/3"
+        }
+    }
+}
+Comprobar ejecutando en modo GET: localhost:8090/api/usuariosalt/usuariosalt/3
+
+****************************************************************************
+EDITAR:
+Método: PUT
+Body: raw --> Seleccionar JSON
+{
+    "username": "jose",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "id":1, "nombre": "ROLE_USER"
+        },
+        {
+            "id":2, "nombre": "ROLE_ADMIN"
+        }
+    ] 
+}
+Ejecutar: localhost:8090/api/usuariosalt/usuariosalt/3
+Devuelve: 
+{
+    "username": "jose",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "nombre": "ROLE_USER"
+        },
+        {
+            "nombre": "ROLE_ADMIN"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:49971/usuariosalt/3"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:49971/usuariosalt/3"
+        }
+    }
+}
+Comprobar ejecutando en modo GET: localhost:8090/api/usuariosalt/usuariosalt/3
+
+****************************************************************************
+ELIMINAR:
+Método: DELETE
+Body: none
+
+Ejecutar: localhost:8090/api/usuariosalt/usuariosalt/3
+Devuelve: Status: 204 No Content
+
+Comprobar ejecutando en modo GET: localhost:8090/api/usuariosalt/usuariosalt/3
+Devuelve: Status: 404 Not found
+
+Comprobar ejecutando en modo GET: localhost:8090/api/usuariosalt/usuariosalt
+Devuelve: no aparece el usuario 3
+
+****************************************************************************
+****************************************************************************
+**** TRAS CREAR LA CLASE RepositoryConfig:
+
+Método: GET
+
+** Levantar los servicios: eureka - usuariosalt - zuul
+
+localhost:8090/api/usuariosalt/usuariosalt
+
+Devuelve:
+{
+    "id": 1,
+    "username": "susana2",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Susana",
+    "apellido": "MG",
+    "email": "susana@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:50313/usuariosalt/1"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:50313/usuariosalt/1"
+        }
+    }
+}
+
+****************************************************************************
+ANTES DEVOLVÍA (sin id):
+{
+    "username": "susana2",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Susana",
+    "apellido": "MG",
+    "email": "susana@correo.com",
+    "roles": [
+        {
+            "nombre": "ROLE_USER"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:50313/usuariosalt/1"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:50313/usuariosalt/1"
+        }
+    }
+}
+
+****************************************************************************
+****************************************************************************
+
+

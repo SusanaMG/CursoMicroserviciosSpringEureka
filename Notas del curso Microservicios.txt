@@ -86,11 +86,20 @@ https://docs.spring.io/spring-data/jpa/docs/2.4.3/reference/html/#repositories.q
 Spring Data JPA: JPA Repositories: Query Methods:
 https://docs.spring.io/spring-data/jpa/docs/2.4.3/reference/html/#jpa.query-methods
  
-
 Estándar HATEOAS es la abreviación de Hypermedia as the Engine of Application State(hipermedia como motor del estado de la aplicación): es una restricción de la 
 arquitectura Api Rest. Cuando el servidor retorna el JSON también retorna otra información en forma de hipervínculos y recursos del API que le indica al cliente
 cómo navegar,cómo encontrar la información.
 
+CREAR EL JAR:
+1. En la consola de comandos ponerse en la ruta del proyecto: cd C:\Users\nombreUsuario\SpringTS_workspace\cursoMicroservicios\springboot-servicio-commons
+2. Ejecutar el wrapper: mvnw.cmd install
+(con el comando "mvnw install" no me creaba el jar en el directorio target del proyecto)
+3. Ver el resultado (el jar): 
+	 - Ir a C:\Users\nombreUsuario\.m2\repository\com\formacionbdi\springboot\app\commons\springboot-servicio-commons\0.0.1-SNAPSHOT\springboot-servicio-commons-0.0.1-SNAPSHOT.jar
+
+GIT - volver a un commit del repositorio y continuar desde allí borrando lo posterior:
+git reset <commit> --hard
+git push -f origin master
 
 
 
