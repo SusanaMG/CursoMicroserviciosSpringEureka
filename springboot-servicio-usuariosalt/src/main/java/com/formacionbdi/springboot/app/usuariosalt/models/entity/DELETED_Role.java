@@ -1,3 +1,4 @@
+/*
 package com.formacionbdi.springboot.app.usuariosalt.models.entity;
 
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-public class Role implements Serializable {
+public class DELETED_Role implements Serializable {
 
 	private static final long serialVersionUID = 8551353112143224098L;
 
@@ -33,7 +34,7 @@ public class Role implements Serializable {
 	*/
 	
 	// GETTERS AND SETTERS
-
+/*
 	public Long getId() {
 		return id;
 	}
@@ -60,5 +61,6 @@ public class Role implements Serializable {
 		this.usuarios = usuarios;
 	}
 	*/
-
+/*
 }
+*/
