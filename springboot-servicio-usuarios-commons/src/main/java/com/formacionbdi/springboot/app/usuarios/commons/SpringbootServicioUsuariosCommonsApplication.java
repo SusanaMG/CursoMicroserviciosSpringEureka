@@ -1,4 +1,4 @@
-package com.formacionbdi.springboot.app.commons;
+package com.formacionbdi.springboot.app.usuarios.commons;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class}) 
-public class SpringbootServicioCommonsApplication {
+public class SpringbootServicioUsuariosCommonsApplication {
 	
 	//Se quita el método main
 
 }
 
-//Se sobreescribe la notación @EnableAutoConfiguration y se excluye la configuración de la conexión del DataSource
