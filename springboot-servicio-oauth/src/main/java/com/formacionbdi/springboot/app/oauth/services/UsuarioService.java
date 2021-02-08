@@ -73,5 +73,12 @@ de si se usa JPA, JDBC o ApiRest mediante Feign como este caso)
 Para el casteo del tipo de rol de Spring Security, tipo GrantedAuthority:
 No se crea un new GrantedAuthority porque es la interfaz, se tiene que crear del tipo de la clase contreta de 
 Spring Security que es SimpleGrantedAuthority.
+
+Las authorities que necesita el constructor de org.springframework.security.core.userdetails.User
+son una lista de los roles que hemos creado. Pero la lista debe ser
+del tipo GrantedAuthority, por lo que mapeamos nuestros roles para
+pasarle al constructor de SimpleGrantedAuthority (GrantedAuthority es
+la interfaz) el nombre de cada rol para que genere la lista.
+
 */
 
