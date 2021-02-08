@@ -103,9 +103,35 @@ git push -f origin master
 
 Authorization tipo Basic: 'Basic' + Base64.encode('frontendapp' + ':' + '12345')
 
-
-
-
+GENERAR UN NUEVO TOKEN DE ACCESO A PARTIR DEL REFRESH_TOKEN:
+Puede ser antes de que caduque el token de acceso o una vez ya caducado.
+Es conveniente que el refresh_token tenga un tiempo de validez mayor que el del access_token.
+1. Levantar los proyectos: config - eureka - oauth - usuarios - zuul
+2. Generar un token de acceso:
+    	Método: POST
+    	Authorization: TYPE --> Seleccionar Basic Auth
+    	--Username: frontendapp  (está configurado en AuthorizationServerConfig)
+    	--Password: 12345
+    	Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
+    	-- Body: x-www-form-urlencoded: 
+    	--> KEY: username --> VALUE: admin
+    	--> KEY: password --> VALUE: 12345
+    	--> KEY: grant_type --> VALUE: password
+    	Ejecutar: localhost:8090/api/security/oauth/token
+    	Devuelve: el token de acceso (access_token) y también el refresh_token (que permite obtener un token de acceso actualizado).
+3. Suponemos que e token de acceso ha expirado.
+4. Copiamos el refresh_token.
+5. Generar un token de acceso:
+    	Método: POST
+    	Authorization: TYPE --> Seleccionar Basic Auth
+    	--Username: frontendapp  (está configurado en AuthorizationServerConfig)
+    	--Password: 12345
+    	Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
+    	-- Body: x-www-form-urlencoded: 
+    	--> KEY: grant_type --> VALUE: refresh_token
+    	--> KEY: refresh_token --> VALUE: pegamos el refresh_token que hemos copiado.		
+    	Ejecutar: localhost:8090/api/security/oauth/token
+    	Devuelve: el nuevo token de acceso (access_token) y también un nuevo refresh_token (que permite obtener un token de acceso actualizado).
 
 
 
