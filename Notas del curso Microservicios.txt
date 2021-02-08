@@ -94,7 +94,8 @@ CREAR EL JAR:
 1. En la consola de comandos ponerse en la ruta del proyecto: cd C:\Users\nombreUsuario\SpringTS_workspace\cursoMicroservicios\springboot-servicio-commons
 2. Ejecutar el wrapper: mvnw.cmd install
 (con el comando "mvnw install" no me creaba el jar en el directorio target del proyecto)
-3. Ver el resultado (el jar): 
+3. Si ya existía un jar del proyecto previamente, ejecutar el wrapper: mvnw.cmd clean install
+4. Ver el resultado (el jar): 
 	 - Ir a C:\Users\nombreUsuario\.m2\repository\com\formacionbdi\springboot\app\commons\springboot-servicio-commons\0.0.1-SNAPSHOT\springboot-servicio-commons-0.0.1-SNAPSHOT.jar
 
 GIT - volver a un commit del repositorio y continuar desde allí borrando lo posterior:

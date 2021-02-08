@@ -59,6 +59,14 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 		return client.findByUsername(username);
 	}
 
+	/*
+	 * Método para actualizar. Lo usamos para el número de intentos del Login
+	 */
+	@Override
+	public Usuario update(Usuario usuario, Long id) {
+		return client.update(usuario, id);
+	}
+
 }
 
 /*
