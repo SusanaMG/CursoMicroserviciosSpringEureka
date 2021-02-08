@@ -1,0 +1,12 @@
+Tengo 3 proyectos relacionados con los usuarios:
+
+* PROYECTO USUARIOS: es el proyecto usuarios del curso antes de las modificicaciones para usar el proyecto USUARIOS.COMMONS. 
+  Es funcional.
+
+* PROYECTO USUARIOSALT: es el proyecto usuarios del curso hasta después de las modificicaciones para usar el proyecto USUARIOS.COMMONS. 
+  No es funcional, no es capaz de reconocer la ruta /usuariosalt.
+
+* PROYECTO USUARIOSCONTR: Para comprobar si conseguía tener un proyecto funcional que usase el proyecto USUARIOS.COMMONS, creo un nuevo proyecto similar al proyecto PRODUCTOS
+	que se compone de clases con controladores, etc. 
+	Es funcional. Si lo necesito, para las siguientes secciones usaré éstE. Si no es necesario, usaré el proyecto USUARIOS.
+
