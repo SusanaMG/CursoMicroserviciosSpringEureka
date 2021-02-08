@@ -215,9 +215,9 @@ Autenticar:
 
 Método: POST
 Authorization: TYPE --> Seleccionar Basic Auth
-Username: frontendapp  (está configurado en AuthorizationServerConfig)
-Password: 12345
---Click en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
+--Username: frontendapp  (está configurado en AuthorizationServerConfig)
+--Password: 12345
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
 -- Body: x-www-form-urlencoded: 
    --> KEY: username --> VALUE: admin
    --> KEY: password --> VALUE: 12345
@@ -225,7 +225,7 @@ Password: 12345
 
 Ejecutar: localhost:8090/api/security/oauth/token
 
-Devuelve: el token (access_token) (También el refresh_token que permite obtener un token de acceso actualizado )
+Devuelve: el token (access_token) (También el refresh_token que permite obtener un token de acceso actualizado)
 Ejemplo de token:
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3B
 lIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Impob24uZG9
@@ -273,24 +273,187 @@ Copiar el token. Comprobar pegando en la web: https://jwt.io/ el token y viendo 
 
 ****************************************************************************
 ****************************************************************************
+**** TRAS IMPLEMENTAR SEGURIDAD:
+
+** Levantar los servicios: eureka - oauth - usuarios - zuul
+
+Autenticar:
+
+Método: POST
+Authorization: TYPE --> Seleccionar Basic Auth
+--Username: frontendapp  (está configurado en AuthorizationServerConfig)
+--Password: 12345
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: susana
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/security/oauth/token
+
+Devuelve: el token (access_token) (También el refresh_token que permite obtener un token de acceso actualizado)
+
+Copiar el token.
+
+** A continuación, probar una ruta que requiera autenticación de un rol.  
+
+Método: GET
+Authorization: TYPE --> Seleccionar Bearer Token
+--Token: pegar el token copiado.
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Bearer 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: susana
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/usuarios/usuarios/1
+
+Devuelve: 
+{
+    "id": 1,
+    "username": "susana",
+    "password": "$2a$10$hKCmSvkMtZk31AD0.HtfOOjk3bz09rWbsWZGeghV1Bb6QtgxlsJry",
+    "enabled": true,
+    "nombre": "Susana",
+    "apellido": "MG",
+    "email": "susana@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:62346/usuarios/1"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:62346/usuarios/1"
+        }
+    }
+}
+
+Con esta autenticación de usuario con rol ROLE_USER no se puede acceder al CRUD. 
+El intento de una acción del CRUD devuelve:
+{
+    "error": "access_denied",
+    "error_description": "Access is denied"
+}
+
+Para el CRUD hay que acceder con un usuario con rol ROLE_ADMIN.
+
+****************************************************************************
+CRUD PARA UN ADMINISTRADOR:
+
+** Levantar los servicios: eureka - oauth - usuarios - zuul
+
+Autenticar:
+
+Método: POST
+Authorization: TYPE --> Seleccionar Basic Auth
+--Username: frontendapp  (está configurado en AuthorizationServerConfig)
+--Password: 12345
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: admin
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/security/oauth/token
+
+Devuelve: el token (access_token) (También el refresh_token que permite obtener un token de acceso actualizado)
+
+Copiar el token.
+
+** A continuación, probar una ruta que requiera autenticación de un rol.  
+MÉTODOS: POST, PUT O DELETE.
+
+---------------------------------------------------------------------------------------------
+Método: POST
+
+Authorization: TYPE --> Seleccionar Bearer Token
+--Token: pegar el token copiado.
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Bearer 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: admin
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/usuarios/usuarios
+{
+    "username": "pepe",
+    "password": "$2a$10$JLqbf1NBsIkq5asDj63SzeCUlzFBx3iL24C/ryeu2HLWknqjejUey",
+    "enabled": true,
+    "nombre": "Pepe",
+    "apellido": "Doe",
+    "email": "pepe.doe@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        },
+        {
+            "id": 2,
+            "nombre": "ROLE_ADMIN"
+        }
+    ]
+}
+
+Devuelve:
+{
+    "id": 3,
+    "username": "pepe",
+    "password": "$2a$10$JLqbf1NBsIkq5asDj63SzeCUlzFBx3iL24C/ryeu2HLWknqjejUey",
+    "enabled": true,
+    "nombre": "Pepe",
+    "apellido": "Doe",
+    "email": "pepe.doe@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        },
+        {
+            "id": 2,
+            "nombre": "ROLE_ADMIN"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://DESKTOP-N0HNTRU:62346/usuarios/3"
+        },
+        "usuario": {
+            "href": "http://DESKTOP-N0HNTRU:62346/usuarios/3"
+        }
+    }
+}
+
+---------------------------------------------------------------------------------------------
+Método: DELETE
+
+Authorization: TYPE --> Seleccionar Bearer Token
+--Token: pegar el token copiado.
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Bearer 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: admin
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/usuarios/usuarios/1
+
+Devuelve: Status: 404 Not found
+Devuelve: no aparece el usuario 1
+
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarios/usuarios
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+****************************************************************************
+****************************************************************************
 
 
 

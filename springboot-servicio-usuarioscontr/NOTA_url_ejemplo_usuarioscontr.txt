@@ -44,6 +44,7 @@ Body: raw --> Seleccionar JSON
 }
 Ejecutar: localhost:8090/api/usuarioscontr/crear
 También se puede ejecutar: localhost:puertoDinamicoCorrespondiente/crear
+
 Devuelve: 
 {
     "id": 3,
@@ -64,6 +65,7 @@ Devuelve:
         }
     ]
 }
+
 Comprobar ejecutando en modo GET: localhost:8090/api/usuarioscontr/listar
 
 ****************************************************************************
@@ -90,6 +92,7 @@ Body: raw --> Seleccionar JSON
 }
 Ejecutar: localhost:8090/api/usuarioscontr/editar/3
 También se puede ejecutar: localhost:localhost:puertoDinamicoCorrespondiente/editar/3
+
 Devuelve: 
 {
     "id": 3,
@@ -110,6 +113,7 @@ Devuelve:
         }
     ]
 }
+
 Comprobar ejecutando en modo GET: localhost:8090/api/usuarioscontr/listar
 
 ****************************************************************************
@@ -119,23 +123,249 @@ Body: none
 
 Ejecutar: localhost:8090/api/usuarioscontr/eliminar/3
 También se puede ejecutar: localhost:localhost:puertoDinamicoCorrespondiente/eliminar/3
+
 Devuelve: nada
 
 Comprobar ejecutando en modo GET: localhost:8090/api/usuarioscontr/listar
 
 ****************************************************************************
 ****************************************************************************
+**** AUTENTICACIÓN:
+
+** Levantar los servicios: config - eureka - oauth - usuarioscontr - zuul 
+
+Autenticar:
+
+Método: POST
+Authorization: TYPE --> Seleccionar Basic Auth
+--Username: frontendapp  (está configurado en AuthorizationServerConfig)
+--Password: 12345
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: admin
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/security/oauth/token
+
+Devuelve: el token (access_token) (También el refresh_token que permite obtener un token de acceso actualizado)
+Ejemplo de token:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3B
+lIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Impob24uZG9
+lQGNvcnJlby5jb20iLCJleHAiOjE2MTI4MDM3OTksIm5vbWJyZSI6IkpvaG4iLCJhdXRob3J
+pdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImJlODkzNzY4LTEwMTQ
+tNDVjNi1hMDJmLTAyZTg1NDViMDg2ZiIsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.Qu5
+6XKFHpd9mYwhJCKGEPa5sGuovX4GQydPFAt4H9mo
+
+Copiar el token. Comprobar pegando en la web: https://jwt.io/ el token y viendo que salen los datos en PAYLOAD:
+
+-- Comprobación solo datos básicos: 
+{
+  "exp": 1612800151,
+  "user_name": "admin",
+  "authorities": [
+    "ROLE_ADMIN",
+    "ROLE_USER"
+  ],
+  "jti": "1d176cf0-0892-4b5b-86ad-723eebbbc644",
+  "client_id": "frontendapp",
+  "scope": [
+    "read",
+    "write"
+  ]
+}
+
+-- Comprobación datos básicos + info adicional
+{
+  "user_name": "admin",
+  "scope": [
+    "read",
+    "write"
+  ],
+  "apellido": "Doe",
+  "correo": "jhon.doe@correo.com",
+  "exp": 1612803799,
+  "nombre": "John",
+  "authorities": [
+    "ROLE_ADMIN",
+    "ROLE_USER"
+  ],
+  "jti": "be893768-1014-45c6-a02f-02e8545b086f",
+  "client_id": "frontendapp"
+}: 
+
+****************************************************************************
+****************************************************************************
+**** TRAS IMPLEMENTAR SEGURIDAD:
+
+** Levantar los servicios: config - eureka - oauth - usuarioscontr - zuul 
+
+Autenticar:
+
+Método: POST
+Authorization: TYPE --> Seleccionar Basic Auth
+--Username: frontendapp  (está configurado en AuthorizationServerConfig)
+--Password: 12345
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: susana
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/security/oauth/token
+
+Devuelve: el token (access_token) (También el refresh_token que permite obtener un token de acceso actualizado)
+
+Copiar el token.
+
+** A continuación, probar una ruta que requiera autenticación de un rol.  
+
+Método: GET
+Authorization: TYPE --> Seleccionar Bearer Token
+--Token: pegar el token copiado.
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Bearer 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: susana
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/usuarioscontr/ver/2
+
+Devuelve: 
+{
+    "id": 2,
+    "username": "admin3",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "John",
+    "apellido": "Doe",
+    "email": "jhon.doe@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        },
+        {
+            "id": 2,
+            "nombre": "ROLE_ADMIN"
+        }
+    ]
+}
+
+Con esta autenticación de usuario con rol ROLE_USER no se puede acceder al CRUD. 
+El intento de una acción del CRUD devuelve:
+{
+    "error": "access_denied",
+    "error_description": "Access is denied"
+}
+
+Para el CRUD hay que acceder con un usuario con rol ROLE_ADMIN.
+
+****************************************************************************
+CRUD PARA UN ADMINISTRADOR:
+
+** Levantar los servicios: config - eureka - oauth - usuarioscontr - zuul 
+
+Autenticar:
+
+Método: POST
+Authorization: TYPE --> Seleccionar Basic Auth
+--Username: frontendapp  (está configurado en AuthorizationServerConfig)
+--Password: 12345
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: admin
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/security/oauth/token
+
+Devuelve: el token (access_token) (También el refresh_token que permite obtener un token de acceso actualizado)
+
+Copiar el token.
+
+** A continuación, probar una ruta que requiera autenticación de un rol.  
+MÉTODOS: POST, PUT O DELETE.
+
+---------------------------------------------------------------------------------------------
+Método: POST
+
+Authorization: TYPE --> Seleccionar Bearer Token
+--Token: pegar el token copiado.
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Bearer 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: admin
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/usuarioscontr/crear
+{
+    "username": "sara3",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Sara",
+    "apellido": "Doe",
+    "email": "sara3.doe@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        },
+        {
+            "id": 2,
+            "nombre": "ROLE_ADMIN"
+        }
+    ]
+}
+
+Devuelve:
+{
+    "id": 3,
+    "username": "sara3",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Sara",
+    "apellido": "Doe",
+    "email": "sara3.doe@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        },
+        {
+            "id": 2,
+            "nombre": "ROLE_ADMIN"
+        }
+    ]
+}
+
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarioscontr/listar
+
+---------------------------------------------------------------------------------------------
+Método: DELETE
+
+Authorization: TYPE --> Seleccionar Bearer Token
+--Token: pegar el token copiado.
+
+Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Bearer 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: admin
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/usuarioscontr/eliminar/3
+
+Devuelve: Status: 404 Not found
+Devuelve: no aparece el usuario 3
+
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarioscontr/listar
 
 
-
-
-
-
-
-
-
-
-
-
+****************************************************************************
+****************************************************************************
 
 

@@ -4,169 +4,87 @@ EJEMPLOS DE URLS PARA PONER EN EL POSTMAN:
 ****************************************************************************
 Método: GET
 
-** Levantar los servicios: eureka - productos - item2 - zuul
+** Levantar los servicios: config - eureka - productos - zuul
 
-localhost:8003/listar
-localhost:8003/ver/2/cantidad/3
+localhost:puertoDinamicoCorrespondiente/listar
+localhost:localhost:puertoDinamicoCorrespondiente/ver/2
+Ejemplos:
+localhost:50311/listar
+localhost:50311/ver/2
 
-localhost:8090/api/items2/listar
-localhost:8090/api/items2/ver/2/cantidad/3
-
-** Levantar los servicios: config - eureka - productos - item2 - zuul
-
-* Si está activo el entorno default en la propiedad spring.profiles.active de bootstrap.properties
-(es decir si no están actidos dev ni prod):
-localhost:8006/listar
-localhost:8006/ver/2/cantidad/3
-
-
-* Si está activo el entorno dev en la propiedad spring.profiles.active de bootstrap.properties:
-localhost:8053/listar
-localhost:8053/ver/2/cantidad/3
-localhost:8053/obtener-config
+localhost:8090/api/productos/listar
+localhost:8090/api/productos/ver/2
 
 ****************************************************************************
 ****************************************************************************
 **** CRUD:
 
-** Levantar los servicios: config - eureka - productos - item2 - zuul
-
-CASO: RestTemplate
+** Levantar los servicios: config - eureka - productos - zuul
 
 CREAR:
 Método: POST
 Body: raw --> Seleccionar JSON
-
 {
-    "nombre": "Mesa comedor", 
-    "precio": 3500,
-    "createAt": "2019-06-14"
-}
-Ejecutar: localhost:8090/api/items2/crear
-También se puede ejecutar: localhost:8053/crear
-Devuelve: 
-{
-    "id": 11,
-    "nombre": "Mesa comedor",
-    "precio": 3500.0,
-    "createAt": "2019-06-14T00:00:00.000+00:00",
-    "port": null
-} 
-Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
-
------------------------------------------------------------------------------
-Otro ejemplo:
-{
-    "nombre": "Mesa oficina", 
-    "precio": 2500,
-    "createAt": "2019-06-14"
-}
-Devuelve:
-{
-    "id": 12,
-    "nombre": "Mesa oficina",
-    "precio": 2500.0,
-    "createAt": "2019-06-14T00:00:00.000+00:00",
-    "port": null
-}
-
-****************************************************************************
-EDITAR:
-Método: PUT
-Body: raw --> Seleccionar JSON
-{
-    "nombre": "Silla oficina", 
-    "precio": 500
-}
-Ejecutar: localhost:8090/api/items2/editar/11
-También se puede ejecutar: localhost:8053/editar/11
-Devuelve: 
-{
-    "id": 11,
-    "nombre": "Silla oficina",
-    "precio": 500.0,
-    "createAt": "2019-06-14T00:00:00.000+00:00",
-    "port": null
-}
-Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
-
-****************************************************************************
-ELIMINAR:
-Método: DELETE
-Body: none
-
-Ejecutar: localhost:8090/api/items2/eliminar/11
-También se puede ejecutar: localhost:8053/eliminar/11
-Devuelve: nada
-
-Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
-
-****************************************************************************
-****************************************************************************
-**** CRUD:
-
-** Levantar los servicios: config - eureka - productos - item2 - zuul
-
-CASO: Feign
-
-CREAR:
-Método: POST
-Body: raw --> Seleccionar JSON
-
-{
-    "nombre": "Mesa comedor", 
-    "precio": 3700,
-    "createAt": "2019-06-18"
-}
-Ejecutar: localhost:8090/api/items2/crear
-También se puede ejecutar: localhost:8053/crear
-Devuelve: 
-{
-    "id": 11,
-    "nombre": "Mesa comedor",
-    "precio": 3700.0,
-    "createAt": "2019-06-18T00:00:00.000+00:00",
-    "port": null
-}
-Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
-
-****************************************************************************
-EDITAR:
-Método: PUT
-Body: raw --> Seleccionar JSON
-{
-    "nombre": "Silla comedor", 
-    "precio": 700
-}
-Ejecutar: localhost:8090/api/items2/editar/11
-También se puede ejecutar: localhost:8053/editar/11
-Devuelve: 
-{
-    "id": 11,
-    "nombre": "Silla comedor",
+    "nombre": "Mesilla",
     "precio": 700.0,
-    "createAt": "2019-06-18T00:00:00.000+00:00",
+    "createAt": "2021-02-08",
+    "port": 0
+}
+Ejecutar: localhost:8090/api/productos/crear
+También se puede ejecutar: localhost:puertoDinamicoCorrespondiente/crear
+
+Devuelve: 
+{
+    "id": 11,
+    "nombre": "Mesilla",
+    "precio": 700.0,
+    "createAt": "2021-02-08T00:00:00.000+00:00",
+    "port": 0
+}
+
+Comprobar ejecutando en modo GET: localhost:8090/api/productos/listar
+
+****************************************************************************
+EDITAR:
+Método: PUT
+Body: raw --> Seleccionar JSON
+{
+    "nombre": "Mesilla pequeña",
+    "precio": 700.0,
+    "createAt": "2021-02-08",
+    "port": 0
+}
+Ejecutar: localhost:8090/api/productos/editar/11
+También se puede ejecutar: localhost:localhost:puertoDinamicoCorrespondiente/editar/11
+
+Devuelve: 
+{
+    "id": 11,
+    "nombre": "Mesilla pequeña",
+    "precio": 700.0,
+    "createAt": "2021-02-08",
     "port": null
 }
 
-Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
+Comprobar ejecutando en modo GET: localhost:8090/api/productos/listar
 
 ****************************************************************************
 ELIMINAR:
 Método: DELETE
 Body: none
 
-Ejecutar: localhost:8090/api/items2/eliminar/11
-También se puede ejecutar: localhost:8053/eliminar/11
+Ejecutar: localhost:8090/api/productos/eliminar/11
+También se puede ejecutar: localhost:localhost:puertoDinamicoCorrespondiente/eliminar/11
+
 Devuelve: nada
 
-Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
+Comprobar ejecutando en modo GET: localhost:8090/api/productos/listar
 
 ****************************************************************************
 ****************************************************************************
 **** AUTENTICACIÓN:
 
-** Levantar los servicios: config - eureka - oauth - productos - item2 - zuul
+** Levantar los servicios: config - eureka - oauth - productos - zuul 
 
 Autenticar:
 
@@ -232,7 +150,7 @@ Copiar el token. Comprobar pegando en la web: https://jwt.io/ el token y viendo 
 ****************************************************************************
 **** TRAS IMPLEMENTAR SEGURIDAD:
 
-** Levantar los servicios: config - eureka - oauth - productos - item2 - zuul
+** Levantar los servicios: config - eureka - oauth - productos - zuul 
 
 Autenticar:
 
@@ -265,19 +183,15 @@ Click en Headers o en Preview Request: se genera una cabecera > Temporary Header
    --> KEY: password --> VALUE: 12345
    --> KEY: grant_type --> VALUE: password
 
-Ejecutar: localhost:8090/api/items2/ver/2/cantidad/3
+Ejecutar: localhost:8090/api/productos/ver/2
 
 Devuelve: 
 {
-    "producto": {
-        "id": 2,
-        "nombre": "Sony",
-        "precio": 700.0,
-        "createAt": "2021-02-08T00:00:00.000+00:00",
-        "port": 0
-    },
-    "cantidad": 3,
-    "total": 2100.0
+    "id": 2,
+    "nombre": "Sony",
+    "precio": 700.0,
+    "createAt": "2021-02-08",
+    "port": 0
 }
 
 Con esta autenticación de usuario con rol ROLE_USER no se puede acceder al CRUD. 
@@ -292,7 +206,7 @@ Para el CRUD hay que acceder con un usuario con rol ROLE_ADMIN.
 ****************************************************************************
 CRUD PARA UN ADMINISTRADOR:
 
-** Levantar los servicios: config - eureka - oauth - productos - item2 - zuul
+** Levantar los servicios: config - eureka - oauth - productos - zuul 
 
 Autenticar:
 
@@ -328,23 +242,24 @@ Click en Headers o en Preview Request: se genera una cabecera > Temporary Header
    --> KEY: password --> VALUE: 12345
    --> KEY: grant_type --> VALUE: password
 
-Ejecutar: localhost:8090/api/items2/crear
+Ejecutar: localhost:8090/api/productos/crear
 {
-    "nombre": "Mesa comedor", 
-    "precio": 3700,
-    "createAt": "2019-06-18"
+    "nombre": "Mesilla",
+    "precio": 700.0,
+    "createAt": "2021-02-08",
+    "port": 0
 }
 
 Devuelve:
 {
-    "id": 10,
-    "nombre": "Mesa comedor",
-    "precio": 3700.0,
-    "createAt": "2019-06-18T00:00:00.000+00:00",
-    "port": null
+    "id": 11,
+    "nombre": "Mesilla",
+    "precio": 700.0,
+    "createAt": "2021-02-08T00:00:00.000+00:00",
+    "port": 0
 }
 
-Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
+Comprobar ejecutando en modo GET: localhost:8090/api/productos/listar
 
 ---------------------------------------------------------------------------------------------
 Método: DELETE
@@ -358,12 +273,12 @@ Click en Headers o en Preview Request: se genera una cabecera > Temporary Header
    --> KEY: password --> VALUE: 12345
    --> KEY: grant_type --> VALUE: password
 
-Ejecutar: localhost:8090/api/items2/eliminar/10
+Ejecutar: localhost:8090/api/productos/eliminar/11
 
 Devuelve: Status: 404 Not found
-Devuelve: no aparece el usuario 10
+Devuelve: no aparece el usuario 11
 
-Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
+Comprobar ejecutando en modo GET: localhost:8090/api/productos/listar
 
 
 ****************************************************************************
