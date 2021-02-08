@@ -1,0 +1,141 @@
+EJEMPLOS DE URLS PARA PONER EN EL POSTMAN:
+
+****************************************************************************
+****************************************************************************
+Método: GET
+
+** Levantar los servicios: config - eureka - usuarioscontr - zuul
+
+localhost:puertoDinamicoCorrespondiente/listar
+localhost:localhost:puertoDinamicoCorrespondiente/ver/2
+Ejemplos:
+localhost:50311/listar
+localhost:50311/ver/2
+
+localhost:8090/api/usuarioscontr/listar
+localhost:8090/api/usuarioscontr/ver/2
+
+****************************************************************************
+****************************************************************************
+**** CRUD:
+
+** Levantar los servicios: config - eureka - usuarioscontr - zuul
+
+CREAR:
+Método: POST
+Body: raw --> Seleccionar JSON
+{
+    "username": "pepe3",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        },
+        {
+            "id": 2,
+            "nombre": "ROLE_ADMIN"
+        }
+    ]
+}
+Ejecutar: localhost:8090/api/usuarioscontr/crear
+También se puede ejecutar: localhost:puertoDinamicoCorrespondiente/crear
+Devuelve: 
+{
+    "id": 3,
+    "username": "pepe3",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        },
+        {
+            "id": 2,
+            "nombre": "ROLE_ADMIN"
+        }
+    ]
+}
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarioscontr/listar
+
+****************************************************************************
+EDITAR:
+Método: PUT
+Body: raw --> Seleccionar JSON
+{
+    "username": "jose3",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        },
+        {
+            "id": 2,
+            "nombre": "ROLE_ADMIN"
+        }
+    ]
+}
+Ejecutar: localhost:8090/api/usuarioscontr/editar/3
+También se puede ejecutar: localhost:localhost:puertoDinamicoCorrespondiente/editar/3
+Devuelve: 
+{
+    "id": 3,
+    "username": "jose3",
+    "password": "12345",
+    "enabled": true,
+    "nombre": "Jose",
+    "apellido": "Doe",
+    "email": "jose.doe@correo.com",
+    "roles": [
+        {
+            "id": 1,
+            "nombre": "ROLE_USER"
+        },
+        {
+            "id": 2,
+            "nombre": "ROLE_ADMIN"
+        }
+    ]
+}
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarioscontr/listar
+
+****************************************************************************
+ELIMINAR:
+Método: DELETE
+Body: none
+
+Ejecutar: localhost:8090/api/usuarioscontr/eliminar/3
+También se puede ejecutar: localhost:localhost:puertoDinamicoCorrespondiente/eliminar/3
+Devuelve: nada
+
+Comprobar ejecutando en modo GET: localhost:8090/api/usuarioscontr/listar
+
+****************************************************************************
+****************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
