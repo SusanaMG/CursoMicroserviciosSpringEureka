@@ -101,7 +101,7 @@ GIT - volver a un commit del repositorio y continuar desde allí borrando lo pos
 git reset <commit> --hard
 git push -f origin master
 
-
+Authorization tipo Basic: 'Basic' + Base64.encode('frontendapp' + ':' + '12345')
 
 
 

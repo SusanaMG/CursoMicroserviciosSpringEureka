@@ -207,5 +207,47 @@ ANTES DEVOLVÍA (sin id):
 
 ****************************************************************************
 ****************************************************************************
+**** AUTENTICACIÓN:
+
+** Levantar los servicios: eureka - oauth - usuarios - zuul
+
+Autenticar:
+Método: POST
+Authorization: TYPE --> Seleccionar Basic Auth
+Username: frontendapp  (está configurado en AuthorizationServerConfig)
+Password: 12345
+--Click en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Basic 
+-- Body: x-www-form-urlencoded: 
+   --> KEY: username --> VALUE: admin
+   --> KEY: password --> VALUE: 12345
+   --> KEY: grant_type --> VALUE: password
+
+Ejecutar: localhost:8090/api/security/oauth/token
+Devuelve: el token (access_token)
+
+Copiar el token. Comprobar pegando en la web: https://jwt.io/ el token y viendo que salen los datos en PAYLOAD
+
+
+****************************************************************************
+****************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
