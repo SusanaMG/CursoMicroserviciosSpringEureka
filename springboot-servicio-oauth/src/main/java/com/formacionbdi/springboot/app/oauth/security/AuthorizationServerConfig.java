@@ -26,13 +26,29 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 
-		super.configure(security);
+		security.tokenKeyAccess("permitAll()")
+		.checkTokenAccess("isAuthenticated()");
 	}
 
+	 //Aqui podemos registrar a nuestros clientes
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-		super.configure(clients);
+		clients.inMemory().withClient("frontendapp")
+		.secret(passwordEncoder.encode("12345"))
+		.scopes("read", "write")
+		.authorizedGrantTypes("password", "refresh_token")
+		.accessTokenValiditySeconds(3600)
+		.refreshTokenValiditySeconds(3600);
+		/*
+		 * Podriamos encadenar mas clientes
+		 .and()
+		.withClient("androidapp")
+		.secret(passwordEncoder.encode("12345"))
+		.scopes("read", "write")
+		.authorizedGrantTypes("password", "refresh_token")
+		.accessTokenValiditySeconds(3600)
+		.refreshTokenValiditySeconds(3600)*/
 	}
 
 	/*
