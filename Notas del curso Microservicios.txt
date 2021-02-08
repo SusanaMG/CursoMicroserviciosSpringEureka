@@ -133,6 +133,14 @@ Es conveniente que el refresh_token tenga un tiempo de validez mayor que el del 
     	Ejecutar: localhost:8090/api/security/oauth/token
     	Devuelve: el nuevo token de acceso (access_token) y también un nuevo refresh_token (que permite obtener un token de acceso actualizado).
 
+CORS: es el intercambio de recursos de origen cruzado (Cross-origin resource sharing).
+Ejmplo: una aplicación cliente (ej. angular) que está en un dominio distinto y en un puerto distinto se quiere conectar/comunicar con nuestro backend, 
+nuestras Api Rest con zuul server (que es nuestra puerta de entrada.)
+CORS es un mecanismo que utiliza las cabeceras HTTP para permitir que una aplicación cliente que está en otro servidor, en otro dominio distinto al del 
+backend tenga los permisos para acceder a los recursos del backend. En este caso a recursos protegidos con Spring Security, particularmente con el servidor de 
+recurso que lo tenemos configurado en zuul.
+
+
 
 
 

@@ -1,9 +1,13 @@
 package com.formacionbdi.springboot.app.zuul.oauth;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;   
@@ -11,8 +15,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
-@RefreshScope
+@RefreshScope						//Para que se actualice si hay cambios
 @Configuration
 @EnableResourceServer				//Habilitar la configuración del servidor de recurso
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
@@ -20,14 +28,20 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	@Value("${config.security.oauth.jwt.key}")
 	private String jwtKey;
 	
-	//Método para configurar el token
+	/*
+	 * Método para configurar el token
+	 */
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		resources.tokenStore(tokenStore());
 	}
 
-	//Método para proteger rutas o endpoints. 
-	//Rutas específicas al principio y luego las genéricas (/**)
+	/*
+	 * Método para proteger rutas o endpoints. 
+	 * Rutas específicas al principio y luego las genéricas (/**)
+	 * Registro de CORS (para el acceso de aplicaciones cliente). Creamos los métodos corsConfigurationSource() 
+	 * y corsFilter()
+	 */
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
@@ -41,7 +55,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 				"/api/items2/ver/{id}/cantidad/{cantidad}", "/api/usuarios/usuarios/{id}", 
 				"/api/usuarioscontr/ver/{id}").hasAnyRole("ADMIN", "USER")  //No usar ROLE_ADMIN / ROLE_USER aquí. Sí en BBDD
 		//CRUD. Solo accesible para administradores.
-		//De forma genérica:
+		//Generalizando rutas del CRUD:
 		.antMatchers("/api/productos/**", "/api/items/**", "/api/items2/**", "/api/usuarios/**", 
 				"/api/usuarioscontr/**").hasRole("ADMIN")
 		/*
@@ -55,17 +69,60 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		*/
 		
 		//Cualquier otra ruta no configurada necesita autenticación
-		.anyRequest().authenticated();
+ 		.anyRequest().authenticated()
+		//Para registrar CORS 
+		.and().cors().configurationSource(corsConfigurationSource());
 	}
 		
-	//Misma configuración que el AuthorizationServerConfig.java del microservicio oauth
+	/*
+	 * Para configurar CORS. Ha de ser PUBLIC
+	 */
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration corsconfig = new CorsConfiguration();
+		//Genérico
+		//corsconfig.addAllowedOrigin("*");
+		corsconfig.setAllowedOrigins(Arrays.asList("*"));	//Lista de nombres de orígenes separados por comas
+		//Permitir verbos HTTP. OAuth2 utiliza OPTIONS en los endpoints oauth, hay que incluirlo
+		corsconfig.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
+		//Que sea TRUE
+		corsconfig.setAllowCredentials(true);
+		//uAuthorization: importante cuando se envía el token y nos autenticamos con el client id y el secret key
+		corsconfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+		
+		//Pasar esta configuración a los endpoint
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsconfig);
+		
+		return source;
+	}
+
+	/*
+	 * Método para registrar un filtro de CORS y que no solamente quede configurado en Spring Security
+	 * CORS queda configurado a nivel global en un filtro de Spring en toda la aplicación
+	 * Ha de ser PUBLIC
+	 * 
+	 */
+	@Bean
+	public FilterRegistrationBean<CorsFilter> corsFilter() {
+		FilterRegistrationBean<CorsFilter> bean = 
+				new FilterRegistrationBean<CorsFilter>(new CorsFilter(corsConfigurationSource()));
+		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);		//Darle prioridad alta
+		return bean;
+	}
+	
+	/*
+	 * Misma configuración que el AuthorizationServerConfig.java del microservicio oauth
+	 */
 	@Bean
 	public JwtTokenStore tokenStore() {
 
 		return new JwtTokenStore(accessTokenConverter());
 	}
 	
-	//Misma configuración que el AuthorizationServerConfig.java del microservicio oauth
+	/*
+	 * Misma configuración que el AuthorizationServerConfig.java del microservicio oauth
+	 */
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 
