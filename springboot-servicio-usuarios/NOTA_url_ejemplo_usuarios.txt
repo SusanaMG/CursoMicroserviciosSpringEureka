@@ -212,6 +212,7 @@ ANTES DEVOLVÍA (sin id):
 ** Levantar los servicios: eureka - oauth - usuarios - zuul
 
 Autenticar:
+
 Método: POST
 Authorization: TYPE --> Seleccionar Basic Auth
 Username: frontendapp  (está configurado en AuthorizationServerConfig)
@@ -223,10 +224,52 @@ Password: 12345
    --> KEY: grant_type --> VALUE: password
 
 Ejecutar: localhost:8090/api/security/oauth/token
-Devuelve: el token (access_token)
 
-Copiar el token. Comprobar pegando en la web: https://jwt.io/ el token y viendo que salen los datos en PAYLOAD
+Devuelve: el token (access_token) (También el refresh_token que permite obtener un token de acceso actualizado )
+Ejemplo de token:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3B
+lIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Impob24uZG9
+lQGNvcnJlby5jb20iLCJleHAiOjE2MTI4MDM3OTksIm5vbWJyZSI6IkpvaG4iLCJhdXRob3J
+pdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImJlODkzNzY4LTEwMTQ
+tNDVjNi1hMDJmLTAyZTg1NDViMDg2ZiIsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.Qu5
+6XKFHpd9mYwhJCKGEPa5sGuovX4GQydPFAt4H9mo
 
+Copiar el token. Comprobar pegando en la web: https://jwt.io/ el token y viendo que salen los datos en PAYLOAD:
+
+-- Comprobación solo datos básicos: 
+{
+  "exp": 1612800151,
+  "user_name": "admin",
+  "authorities": [
+    "ROLE_ADMIN",
+    "ROLE_USER"
+  ],
+  "jti": "1d176cf0-0892-4b5b-86ad-723eebbbc644",
+  "client_id": "frontendapp",
+  "scope": [
+    "read",
+    "write"
+  ]
+}
+
+-- Comprobación datos básicos + info adicional
+{
+  "user_name": "admin",
+  "scope": [
+    "read",
+    "write"
+  ],
+  "apellido": "Doe",
+  "correo": "jhon.doe@correo.com",
+  "exp": 1612803799,
+  "nombre": "John",
+  "authorities": [
+    "ROLE_ADMIN",
+    "ROLE_USER"
+  ],
+  "jti": "be893768-1014-45c6-a02f-02e8545b086f",
+  "client_id": "frontendapp"
+}: 
 
 ****************************************************************************
 ****************************************************************************

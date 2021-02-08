@@ -18,7 +18,7 @@ import com.formacionbdi.springboot.app.oauth.clients.UsuarioFeignClient;
 import com.formacionbdi.springboot.app.usuarios.commons.models.entity.Usuario;
 
 @Service
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService implements IUsuarioService, UserDetailsService {
 
 	//Log para registrar mensajes en el terminal
 	private Logger log = LoggerFactory.getLogger(UsuarioService.class);
@@ -54,6 +54,11 @@ public class UsuarioService implements UserDetailsService {
 				true, true, authorities);
 	}
 
+	@Override
+	public Usuario findByUsername(String username) {
+		return client.findByUsername(username);
+	}
+
 }
 
 /*
@@ -63,10 +68,12 @@ se hace de esta forma con esta clase y esta implementación. Consumiendo un Api 
 */
 
 /*
-Sobre la interfaz que se implementa:
+Sobre la interfaces que se implementan:
 UserDetailsService: es una interface propia de Spring Security
-Método loadUserByUsername: se encarga de autenticar, de obtener al usuario por el username (independiente
-de si se usa JPA, JDBC o ApiRest mediante Feign como este caso)
+-- Método loadUserByUsername: se encarga de autenticar, de obtener al usuario por el username (independiente
+-- de si se usa JPA, JDBC o ApiRest mediante Feign como este caso)
+
+IUsuarioService: es una interface para obtener al usuario (objeto Usuario con todos los datos)
 */
 
 /*
