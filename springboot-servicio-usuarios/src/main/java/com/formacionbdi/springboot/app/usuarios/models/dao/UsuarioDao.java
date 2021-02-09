@@ -5,6 +5,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formacionbdi.springboot.app.usuarios.models.entity.Usuario;
 
@@ -33,6 +34,8 @@ public interface UsuarioDao extends PagingAndSortingRepository<Usuario, Long>{
 	@RestResource(path="buscar-username")			//Anotación para personalizar los nombres
 	public Usuario findByUsername(@Param("username") String username);
 	//POSTMAN: localhost:8090/api/usuarios/usuarios/search/buscar-username?username=admin 
+	//PROBANDO
+	//public Usuario findByUsername(@RequestParam("username") String username);
 	
 	
 	//Otro ejemplo

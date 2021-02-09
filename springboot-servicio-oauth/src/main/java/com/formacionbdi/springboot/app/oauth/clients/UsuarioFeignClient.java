@@ -16,6 +16,8 @@ public interface UsuarioFeignClient {
 	
 	@GetMapping("/usuarios/search/buscar-username") 
 	public Usuario findByUsername(@RequestParam String username);
+	//PROBANDO
+	//public Usuario findByUsername(@RequestParam(name = "username") String username);
 	
 	/*
 	 * Método para actualizar. Lo usamos para el número de intentos del Login

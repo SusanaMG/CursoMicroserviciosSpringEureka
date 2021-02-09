@@ -28,30 +28,30 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+				
+			//Obtención del usuario
+			Usuario usuario = client.findByUsername(username);
+			
+			//Manejar el error si el usuario no existe
+			if(usuario == null) {
+				log.error("Error en el login, no existe el usuario '"+ username +"'en el sistema");
+				throw new UsernameNotFoundException("Error en el login, no existe el usuario '"+ username +"'en el sistema");
+			}
+			
+			//Obtención de los roles del usuario del tipo clase Usuario que es un List<Role> 
+			//y casteo al tipo de rol del tipo Spring Security, tipo GrantedAuthority que es un List<GrantedAuthority>
+			List<GrantedAuthority> authorities = usuario.getRoles()
+					.stream()
+					.map(role -> new SimpleGrantedAuthority(role.getNombre())) 			//hasta aquí es flujo
+					.peek(authority -> log.info("Role: " + authority.getAuthority()))	//log: muestra el rol tipo authority del usuario autenticado
+					.collect(Collectors.toList());										//aquí ya List<GrantedAuthority> 
 		
-		//Obtención del usuario
-		Usuario usuario = client.findByUsername(username);
-		
-		//Manejar el error si el usuario no existe
-		if(usuario == null) {
-			log.error("Error en el login, no existe el usuario '"+ username +"'en el sistema");
-			throw new UsernameNotFoundException("Error en el login, no existe el usuario '"+ username +"'en el sistema");
-		}
-		
-		//Obtención de los roles del usuario del tipo clase Usuario que es un List<Role> 
-		//y casteo al tipo de rol del tipo Spring Security, tipo GrantedAuthority que es un List<GrantedAuthority>
-		List<GrantedAuthority> authorities = usuario.getRoles()
-				.stream()
-				.map(role -> new SimpleGrantedAuthority(role.getNombre())) 			//hasta aquí es flujo
-				.peek(authority -> log.info("Role: " + authority.getAuthority()))	//log: muestra el rol tipo authority del usuario autenticado
-				.collect(Collectors.toList());										//aquí ya List<GrantedAuthority> 
-	
-		//log: username del usuario autenticado
-		log.info("Usuario autenticado: " + username);
-		
-		//Return de un User del tipo de Spring Security
-		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, 
-				true, true, authorities);
+			//log: username del usuario autenticado
+			log.info("Usuario autenticado: " + username);
+			
+			//Return de un User del tipo de Spring Security
+			return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, 
+					true, true, authorities);
 	}
 
 	@Override
@@ -68,7 +68,6 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	}
 
 }
-
 /*
 Sobre la propia clase: 
 Esta clase de servicio se tiene que configurar en Spring Security para indicar que el proceso de autenticación (logging) 
@@ -96,4 +95,3 @@ pasarle al constructor de SimpleGrantedAuthority (GrantedAuthority es
 la interfaz) el nombre de cada rol para que genere la lista.
 
 */
-

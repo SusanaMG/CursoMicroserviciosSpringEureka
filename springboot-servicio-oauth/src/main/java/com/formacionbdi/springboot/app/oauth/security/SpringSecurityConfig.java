@@ -15,19 +15,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService usuarioService;
-	
+	 
 	@Autowired
 	private AuthenticationEventPublisher eventPublisher;
 	
-	@Override
-	@Autowired
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-		auth.userDetailsService(this.usuarioService).passwordEncoder(passwordEncoder())
-		//Registrar los eventos de la clase AuthenticationSuccessErrorHandler.java
-		.and().authenticationEventPublisher(eventPublisher);
-	}
-
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 
@@ -35,10 +26,25 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
+	@Autowired
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		
+		System.out.println("CLASE SpringSecurityConfig: this.usuarioService VAOLR: "+ this.usuarioService);
+		
+		auth.userDetailsService(this.usuarioService)
+		.passwordEncoder(passwordEncoder())
+		//Registrar los eventos de la clase AuthenticationSuccessErrorHandler.java
+		.and().authenticationEventPublisher(eventPublisher)
+		;
+		
+	}
+	
+	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 
 		return super.authenticationManager();
-	}
+	}	
+
 
 }

@@ -47,7 +47,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
 		/*
-		//Lo tenemos configurado en bootstarp.properties
+		//Lo tenemos configurado en bootstrap.properties
 		clients.inMemory().withClient("frontendapp")
 		.secret(passwordEncoder.encode("12345"))
 		*/
@@ -105,18 +105,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
