@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import com.formacionbdi.springboot.app.oauth.clients.UsuarioFeignClient;
 import com.formacionbdi.springboot.app.usuarios.commons.models.entity.Usuario;
 
+import feign.FeignException;
+
 @Service
 public class UsuarioService implements IUsuarioService, UserDetailsService {
 
@@ -28,15 +30,10 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-				
+			
+		try {
 			//Obtención del usuario
 			Usuario usuario = client.findByUsername(username);
-			
-			//Manejar el error si el usuario no existe
-			if(usuario == null) {
-				log.error("Error en el login, no existe el usuario '"+ username +"'en el sistema");
-				throw new UsernameNotFoundException("Error en el login, no existe el usuario '"+ username +"'en el sistema");
-			}
 			
 			//Obtención de los roles del usuario del tipo clase Usuario que es un List<Role> 
 			//y casteo al tipo de rol del tipo Spring Security, tipo GrantedAuthority que es un List<GrantedAuthority>
@@ -49,9 +46,15 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 			//log: username del usuario autenticado
 			log.info("Usuario autenticado: " + username);
 			
-			//Return de un User del tipo de Spring Security
+			//Return de un User del tipo de Spring Security (que está autenticado)
 			return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, 
 					true, true, authorities);
+			
+		} catch (FeignException e) {
+			//Manejar el error si el usuario no existe
+			log.error("Error en el login, no existe el usuario '"+ username +"' en el sistema");
+			throw new UsernameNotFoundException("Error en el login, no existe el usuario '"+ username +"' en el sistema");
+		}
 	}
 
 	@Override
