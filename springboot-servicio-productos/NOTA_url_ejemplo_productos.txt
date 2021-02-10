@@ -84,7 +84,7 @@ Comprobar ejecutando en modo GET: localhost:8090/api/productos/listar
 ****************************************************************************
 **** AUTENTICACIÓN:
 
-** Levantar los servicios: config - eureka - oauth - productos - zuul 
+** Levantar los servicios: config - eureka - oauth - usuarios - productos - zuul 
 
 Autenticar:
 
@@ -150,7 +150,7 @@ Copiar el token. Comprobar pegando en la web: https://jwt.io/ el token y viendo 
 ****************************************************************************
 **** TRAS IMPLEMENTAR SEGURIDAD:
 
-** Levantar los servicios: config - eureka - oauth - productos - zuul 
+** Levantar los servicios: config - eureka - oauth - usuarios - productos - zuul 
 
 Autenticar:
 
@@ -206,7 +206,7 @@ Para el CRUD hay que acceder con un usuario con rol ROLE_ADMIN.
 ****************************************************************************
 CRUD PARA UN ADMINISTRADOR:
 
-** Levantar los servicios: config - eureka - oauth - productos - zuul 
+** Levantar los servicios: config - eureka - oauth - usuarios - productos - zuul 
 
 Autenticar:
 
@@ -237,11 +237,13 @@ Authorization: TYPE --> Seleccionar Bearer Token
 --Token: pegar el token copiado.
 
 Click en Headers o en Preview Request: se genera una cabecera > Temporary Headers: KEY Authorization de tipo Bearer 
--- Body: x-www-form-urlencoded: 
-   --> KEY: username --> VALUE: admin
-   --> KEY: password --> VALUE: 12345
-   --> KEY: grant_type --> VALUE: password
-
+Body: raw --> Seleccionar JSON
+{
+    "nombre": "Mesilla",
+    "precio": 700.0,
+    "createAt": "2021-02-08",
+    "port": 0
+}
 Ejecutar: localhost:8090/api/productos/crear
 {
     "nombre": "Mesilla",

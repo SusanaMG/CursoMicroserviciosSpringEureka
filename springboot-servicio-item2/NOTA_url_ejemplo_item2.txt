@@ -166,7 +166,7 @@ Comprobar ejecutando en modo GET: localhost:8090/api/items2/listar
 ****************************************************************************
 **** AUTENTICACIÓN:
 
-** Levantar los servicios: config - eureka - oauth - productos - item2 - zuul
+** Levantar los servicios: config - eureka - oauth - usuarios - productos - item2 - zuul
 
 Autenticar:
 
@@ -232,7 +232,7 @@ Copiar el token. Comprobar pegando en la web: https://jwt.io/ el token y viendo 
 ****************************************************************************
 **** TRAS IMPLEMENTAR SEGURIDAD:
 
-** Levantar los servicios: config - eureka - oauth - productos - item2 - zuul
+** Levantar los servicios: config - eureka - oauth - usuarios - productos - item2 - zuul
 
 Autenticar:
 
@@ -292,7 +292,7 @@ Para el CRUD hay que acceder con un usuario con rol ROLE_ADMIN.
 ****************************************************************************
 CRUD PARA UN ADMINISTRADOR:
 
-** Levantar los servicios: config - eureka - oauth - productos - item2 - zuul
+** Levantar los servicios: config - eureka - oauth - usuarios - productos - item2 - zuul
 
 Autenticar:
 
