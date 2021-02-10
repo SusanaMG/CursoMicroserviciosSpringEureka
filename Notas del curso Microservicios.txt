@@ -190,14 +190,92 @@ https://www.postgresql.org/
 https://www.postgresql.org/download/  --> Elegir sistema operativo: Windows -->
 --> Link Download the installer (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) --> 
 --> Elegir sistema operativo y versión del programa: Windows x86-64 y versión 12.5
-
+ 
 Instalación: Siguiente > Directorio por defecto (C:\Program Files\PostgreSQL\12) > Seleccionar todos los componentes > Directorio donde se guardan 
 las bases de datos (C:\Program Files\PostgreSQL\12\data) > Contraseña para el usuario postgres (usuario por defecto): la que queramos (root) > 
 > Puerto por defecto (5432) > Cofiguración regional = Por defecto > Siguiente > Siguiente > Cuando termina la instalación: quitar la opcion "Stack
 Builder puede ser usado para descargar e instalar herramientas adionales, controladores y aplicaciones para complementar la instalación de PostgreSQL"
-> Terminar.
+> Terminar. 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
+TRAZABILIDAD DISTRIBUIDA CON SPRING CLOUD SLEUTH Y ZIPKIN:
+
+Trazabilidad Distribuida con Spring Cloud: Sleuth y Zipkin
+https://www.paradigmadigital.com/dev/trazabilidad-distribuida-spring-cloud-sleuth-zipkin/
+
+SPRING CLOUD SLEUTH: es una dependencia que nos provee una solución de trazado distribuido para Spring Cloud. Permite identificar la petición
+completa de un microservicio, como un todo, y en cada llamada individual a otros microservicios. 
+
+** Hay dos atributos para identificar la petición:
+- TraceId: identificador que corresponde a la petición completa, a la traza. 
+- SpanId: identificador que corresponde a un lapso de un microservicio determinado, es decir, uan petición específica de un microservicio.
+
+	Una traza (trace) está formada por un conjunto de spans.
+
+	Ejemplo del log del microservicio:
+	INFO[servicio-oauth, 8a40fc93ab438507, f72188520726632d, false]
+	INFO[nombre del microservicio, identificador de la traza, identificadordel span, exportar a zipkin(true o false)]
+
+También hay anotaciones para obtener los tiempos de comunicación de un microservicio y otro, el tiempo de demora en ejecutar una petición dentro de un 
+microservicio (un request), calcular el tiempo de proceso, calcular el tiempo de latencia.
+
+** Atributos Annotation: miden los tiempo de entrada y salida de cada petición, latencia y salud de los servicios:
+- cs (Client Sent): el cliente inicia una petición.
+- sr (Server Received): el servidor recibe y procesa la petición.
+												* LATENCIA = tiempo_sr - tiempo_cs 
+												* Latencia de la red o tiempo de comunicación.
+- ss (Server Sent): la respuesta es enviada al servicio cliente.
+										    * TIEMPO PROCESAMIENTO PETICIÓN = tiempo_ss - tiempo_sr
+												* Tiempo de ejecución o de procesamiento del request.  
+- cr (Client Received): el cliente recibe la respuesta del servidor.
+												* TIEMPO TOTAL TRAZA = tiempo_cr - tiempo_cs
+												* Tiempo completo de la traza.												
+												
+		 -----------------------------------------------------------------------										
+		|			CS: Cliente envía     ---- Request --->   SR: Servidor recibe     |
+		|			*******************                       *******************     |
+		|			*                 *                       *                 *     |
+		|			* MICROSERVICIO A *                       * MICROSERVICIO B *     |
+		|			*                 *                       *                 *     |
+		|			*******************                       *******************     |
+		|			CR: Cliente recibe    <--- Response ----  SS: Servidor envía      |
+		|			                                                                  |
+		|			....................... TraceId: T ..........................>    |  
+		|			+++ SpanId: MA +++> ============== SpanId: MB ===============>    |
+		 -----------------------------------------------------------------------
+
+SERVIDOR ZIPKIN: 
+Es una herrramienta de monitoreo que toma la información de Spring Cloud Sleuth y exporta los datos a una plataforma para poder analizarlos. 
+
+** CARACTERÍSTICAS:
+- Servidor para guardar las trazas y monitorización.
+- Integra las funcionalidades de Spring Cloud Sleuth. Por lo tanto, al poner en el proyecto la dependencia de Zipkin, ya se incluye Spring Cloud 
+	Sleuth y no hay que poner su dependencia por separado.
+- Interfaz gráfica para visualizar el árbol de llamada de cada traza.
+- Su objetivo es consultar la salud del ecosistema. 
+   --------------------------------------------------------------------------------------------------
+  |															                                                                     |
+  | Cliente Zipkin Microservicio ----------> Servidor Zipkin <--------- Zipkin UI                    |
+  |                                                           \                                      |
+  |                                                            \--------> BBDD (Memory, MySQL,       |
+  |																														           Cassandra, ElasticSerch...) |
+  |                                                                                                  |
+   --------------------------------------------------------------------------------------------------
+** BROKERS DE MENSAJERÍA:
+- Además tiene dos formas de envío de trazas al servidor, mediante cabeceras HTTP y con Brokers de mensajería (RabbitMQ, Kafka), por ejemplo:
+
+   ------------------------------------------------------------------------------------------------------------------------------------------------------
+  |															                                                                                                                         |
+  |                                             *******************                                                                                      |
+  | Cliente Zipkin -----Cli.Zipkin Publica----> * Message Broker  * ----Serv.Zipkin Consume----> Servidor Zipkin <--------- Zipkin UI                    |
+  | Microservicio                               *(RabbitMQ, Kafka)*                                              \                                       |
+  |                                             *******************                                               \--------> BBDD (Memory, MySQL,        |
+  |																							(traza en una cola                                                           Cassandra, ElasticSerch...) |
+  |															                    de mensajes)                                                                                         |                                                                                                   |
+   ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
