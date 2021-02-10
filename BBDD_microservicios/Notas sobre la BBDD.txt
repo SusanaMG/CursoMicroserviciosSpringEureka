@@ -1,2 +1,16 @@
 Creamos la BBDD: db_pringboot_cloud
 
+El PROYECTO PRODUCTOS crea las tablas cuando se levanta el proyecto. Si la tabla existía la destruye y se borran los datos. Esto se debe a la 
+configuración de MySQL en el application.properties con la propiedad: 
+				#Configuracion para desarrollo (no para entorno de produccion)
+				#Generacion automatica de tablas a partir de las anotaciones Entity
+				#Al arrancar la app se crean las tablas - Si la tabla ya existia la destruye y borra los datos 
+				spring.jpa.hibernate.ddl-auto=create
+
+TABLA: productos
+
+Consulta de los productos: 
+SELECT * FROM db_springboot_cloud.productos;
+
+
+
