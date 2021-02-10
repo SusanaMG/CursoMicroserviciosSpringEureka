@@ -152,6 +152,21 @@ backend tenga los permisos para acceder a los recursos del backend. En este caso
 recurso que lo tenemos configurado en zuul.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
+BASE DE DATOS MySQL:
+https://www.mysql.com/
+- Descargar la versión Community: 
+https://www.mysql.com/downloads/ --> Link MySQL Community (GPL) Downloads (https://dev.mysql.com/downloads/) -->
+--> Link MySQL Community Server (https://dev.mysql.com/downloads/mysql/) --> 
+--> Link Go to Download Page (https://dev.mysql.com/downloads/windows/installer/8.0.html) -->
+--> Descargar la versión completa (no la web): "mysql-installer-community-8.0.23.0.msi" (Windows (x86, 32-bit), MSI Installer)
+
+Instalación: Setup Type = Custom > Select Products and Features = "MySQL Server versión 8.0.15 - X64" + "MySQL Workbench 8.0.15 - X64" (en las 
+versiones correspondientes) > Next > Execute > Next > Next > Group Replication = Por defecto (Standalone MySQL Server/ Classic MySQL Replication) > 
+> Type and Networking = Por defecto (dejamos el puerto por defecto 3306) > Authentication Method = Por defecto (Use Strong Password Encryption for
+Authentication(RECOMMENDED)) > Contraseña para el usuario root: la que queramos > Windows Service  = Por defecto (Standard System Account) > 
+> Execute > Finish.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
 WEBS PARA BUSCAR LA ZONA HORARIA PARA LA CONFIGURACIÓN DE LA BBDD MySQL (en el application.properties de proyecto usuarios)
 https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 https://www.php.net/manual/es/timezones.php
@@ -169,6 +184,22 @@ FINALMENTE la propiedad spring.datasource.url
 spring.datasource.url=jdbc:mysql://localhost:3306/db_springboot_cloud?serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true&useSSL=false
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
+BASE DE DATOS PostgreSQL:
+https://www.postgresql.org/
+- Descargar la versión:
+https://www.postgresql.org/download/  --> Elegir sistema operativo: Windows -->
+--> Link Download the installer (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) --> 
+--> Elegir sistema operativo y versión del programa: Windows x86-64 y versión 12.5
+
+Instalación: Siguiente > Directorio por defecto (C:\Program Files\PostgreSQL\12) > Seleccionar todos los componentes > Directorio donde se guardan 
+las bases de datos (C:\Program Files\PostgreSQL\12\data) > Contraseña para el usuario postgres (usuario por defecto): la que queramos (root) > 
+> Puerto por defecto (5432) > Cofiguración regional = Por defecto > Siguiente > Siguiente > Cuando termina la instalación: quitar la opcion "Stack
+Builder puede ser usado para descargar e instalar herramientas adionales, controladores y aplicaciones para complementar la instalación de PostgreSQL"
+> Terminar.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
