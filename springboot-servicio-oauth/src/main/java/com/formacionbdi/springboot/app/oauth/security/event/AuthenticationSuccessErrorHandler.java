@@ -31,8 +31,9 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
  		System.out.println(mensaje);
  		log.info(mensaje);
  		
- 		//Uso es if para forzar y salvar el error que me da al llamarse dos veces al publishAuthenticationSuccess
- 		if(user.getUsername().equals("admin") || user.getUsername().equals("susana")) {
+ 		//Uso este if para forzar y salvar el error que me da al llamarse dos veces al publishAuthenticationSuccess
+ 		if(! user.getUsername().equals("frontendapp")) {
+ 		//if(user.getUsername().equals("admin") || user.getUsername().equals("susana")) {
 	 		//Reinicio de los intentos de Login en cada inicio de sesión
 	 		Usuario usuario = usuarioService.findByUsername(authentication.getName()); 
 	 		
