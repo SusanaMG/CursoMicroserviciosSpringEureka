@@ -68,6 +68,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		<!-- Dependencia para habilitar bootstrap en esta versión de bootstring que lo tiene deshabilitado por defecto -->
+		<dependency>
+        	<groupId>org.springframework.cloud</groupId>
+        	<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -198,6 +198,22 @@ Builder puede ser usado para descargar e instalar herramientas adionales, contro
 > Terminar. 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
+La última versión de springboot tienen deshabilitado bootstrap. Hay que habilitarlo añadiendo la dependencia:
+<dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-bootstrap</artifactId>
+</dependency>
+
+EJEMPLO EN EL PROYECTO PRODUCTOS: Versión 2.4.2 en el pom.xml:
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.2</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+------------------------------------------------------------------------------------------------------------------------------------------------
 TRAZABILIDAD DISTRIBUIDA CON SPRING CLOUD SLEUTH Y ZIPKIN:
 
 Trazabilidad Distribuida con Spring Cloud: Sleuth y Zipkin
@@ -308,6 +324,9 @@ https://github.com/spring-projects/spring-boot/issues/24346
 "application.properties contains non UTF-8 characters. I've removed those comments and this doesn't fail for me anymore. Spring Boot 
 uses UTF-8 by default when you use spring-boot-starter-parent but that's something you can easily override for your own need."
 
+Springboot en sus últimas versiones tiene deshabilitado bootstrap:
+How to consume spring cloud config server Jdbc backend configs from Spring cloud Client server?
+https://stackoverflow.com/questions/66010181/how-to-consume-spring-cloud-config-server-jdbc-backend-configs-from-spring-cloud
 ------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
