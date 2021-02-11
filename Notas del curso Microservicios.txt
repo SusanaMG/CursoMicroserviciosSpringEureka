@@ -364,6 +364,9 @@ compilarla.
 				(Ejemplo: C:\ruta\Programas\Zipkin_Server>java -jar zipkin-server-2.23.2-exec.jar)
 * Ejecutar alguna llamada entre microservicios para obtener una traza.
 * En el navegador, para buscar las trazas ir a : http://localhost:9411/zipkin/
+  - La búsqueda se puede filtrar por distintos campos. 
+	- Se pueden crear etiquetas (tag) personalizadas en el código para luego irlas viendo en las trazas. 
+	- Se puede descargar el JSON de la traza. 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 - En este proyecto de microservicios añadimos seguimiento con Zipkin a los proyectos: zuul, usuarios, oauth, item2 y productos. 
