@@ -13,12 +13,13 @@ import org.springframework.stereotype.Component;
 import com.formacionbdi.springboot.app.oauth.services.IUsuarioService;
 import com.formacionbdi.springboot.app.usuarios.commons.models.entity.Usuario;
 
+import brave.Tracer;
 import feign.FeignException;
 
 
 @Component
 public class AuthenticationSuccessErrorHandler implements AuthenticationEventPublisher {
- 
+	
 	private Logger log = LoggerFactory.getLogger(AuthenticationSuccessErrorHandler.class);
 	
 	@Autowired
@@ -26,6 +27,9 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 	
 	@Autowired
 	private IUsuarioService usuarioService;
+	
+	@Autowired
+	private Tracer tracer;
 	
 	@Override
 	public void publishAuthenticationSuccess(Authentication authentication) {
@@ -58,6 +62,9 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
  		
 	 	
  		try {
+ 			StringBuilder errors = new StringBuilder();
+ 			errors.append(mensaje);
+ 			
  			Usuario usuario = usuarioService.findByUsername(authentication.getName()); 
 	 		
 	 		if(usuario.getIntentos() == null) {
@@ -68,15 +75,22 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 	 		usuario.setIntentos(usuario.getIntentos() + 1);
 	 		
 	 		log.info("Número de intentos después es de: " + usuario.getIntentos());
-
-			
+	 		errors.append(" - " + "Intentos del login: " + usuario.getIntentos());
+	 		
 			if(usuario.getIntentos() >= 3) {
+				String errorMaxIntentos = String.format("El usuario %s deshabilitado por máximos intentos", usuario.getUsername());
+				
 				log.error("Usuario " + usuario.getNombre() + " deshabilitado");
-				log.error(String.format("El usuario %s deshabilitado por máximos intentos", usuario.getUsername()));
+				log.error(errorMaxIntentos);
+				errors.append(" - " + errorMaxIntentos);
+				
 				usuario.setEnabled(false);
 			}
 	 		
-			usuarioService.update(usuario, usuario.getId());
+			usuarioService.update(usuario, usuario.getId());   
+			
+			//Agregar más información con un tag en el span (para la trazabilidad distribuida)
+			tracer.currentSpan().tag("error.tag", errors.toString());
  		
  		} catch (FeignException e) {
 			log.error(String.format("El usuario %s no existe en el sistema", authentication.getName()));
