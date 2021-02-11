@@ -355,14 +355,27 @@ compilarla.
 - Link "latest release" (https://search.maven.org/remote_content?g=io.zipkin&a=zipkin-server&v=LATEST&c=exec) y se desacarga el jar está listo y compilado.
 - El jar descargado es: zipkin-server-2.23.2-exec.jar. 
 
-**** PROCESO DE INSTALACIÓN Y DEPLIEGUE:
+**** PROCESO DE INSTALACIÓN Y DESPLIEGUE:
 * Poner el jar en la ruta donde se quiere desplegar. 
 * Desde la consola de comandos, colocarse en esa ruta. 
 				cd C:\ruta\Programas\Zipkin_Server
 * Desplegar ejecutando la aplicación: 
 				java -jar zipkin-server-2.23.2-exec.jar
 				(Ejemplo: C:\ruta\Programas\Zipkin_Server>java -jar zipkin-server-2.23.2-exec.jar)
+* Ejecutar alguna llamada entre microservicios para obtener una traza.
 * En el navegador, para buscar las trazas ir a : http://localhost:9411/zipkin/
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+- En este proyecto de microservicios añadimos seguimiento con Zipkin a los proyectos: zuul, usuarios, oauth, item2 y productos. 
+- Al añadir la dependencia de Zipkin, quitamos la dependencia de Sleuth, excepto en el proyecto productos debido a su versión de springboot.
+
+EJEMPLO EN EL PROYECTO PRODUCTOS: Versión 2.4.2 en el pom.xml:
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.2</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
