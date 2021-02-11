@@ -285,12 +285,36 @@ Es una herrramienta de monitoreo que toma la información de Spring Cloud Sleuth
   |                                             *******************                                                                                      |
   | Cliente Zipkin -----Cli.Zipkin Publica----> * Message Broker  * ----Serv.Zipkin Consume----> Servidor Zipkin <--------- Zipkin UI                    |
   | Microservicio                               *(RabbitMQ, Kafka)*                                              \                                       |
-  |                                             *******************                                               \--------> BBDD (Memory, MySQL,        |
+  |                                             *******************                                               \--------> BBDD (Memory, MySQL,         |
   |																							(traza en una cola                                                           Cassandra, ElasticSerch...) |
   |															                    de mensajes)                                                                                         |                                                                                                   |
    ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
+En este proyecto de microservicios añadimos seguimiento con Sleuth a los proyectos: zuul, usuarios, oauth, item2 y productos.
+
+EJEMPLO - PROCESO DE AUTENTICACIÓN Y OBTENCION DEL TOKEN:
+** localhost:8090/api/security/oauth/token
+** zuul invoca a oauth y luego, oauth invoca a usuarios:
+
+- zuul:      INFO [servicio-zuul-server,1f8a357a8171f89e,1f8a357a8171f89e,true]
+- oauth:           INFO [servicio-oauth,1f8a357a8171f89e,07dd699c8a807caf,true]
+- usuarios:    DEBUG [servicio-usuarios,1f8a357a8171f89e,6017b2f99c410125,true] --> login y autenticarse
+- usuarios:    DEBUG [servicio-usuarios,1f8a357a8171f89e,6a7ad522036b838a,true] --> Obtener la informacióna dicional al token
+- usuarios:    DEBUG [servicio-usuarios,1f8a357a8171f89e,62de9d0cadd85d48,true] --> Evento de éxito de login
+  ** oauth hace 3 peticiones distintas a usuarios, por eso hay 3 spanId
+	
+** Mismo TraceId: 1f8a357a8171f89e
+
+EJEMPLO - OBTENER CONFIGURACIÓN DE ITEMS2:
+** localhost:8090/api/items2/obtener-config (usando un usuario y su token)
+** zuul invoca a items2:
+
+- zuul:INFO [servicio-zuul-server,8a4934ab62e55fb3,8a4934ab62e55fb3,true]
+- items2:		INFO [servicio-items2,8a4934ab62e55fb3,771942ef2cd3f62f,true]       
+  
+
+
 
 
 
