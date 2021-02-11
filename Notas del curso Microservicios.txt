@@ -274,7 +274,7 @@ Es una herrramienta de monitoreo que toma la información de Spring Cloud Sleuth
   | Cliente Zipkin Microservicio ----------> Servidor Zipkin <--------- Zipkin UI                    |
   |                                                           \                                      |
   |                                                            \--------> BBDD (Memory, MySQL,       |
-  |																														           Cassandra, ElasticSerch...) |
+  |																														           Cassandra, ElasticSearch...) |
   |                                                                                                  |
    --------------------------------------------------------------------------------------------------
 ** BROKERS DE MENSAJERÍA:
@@ -313,10 +313,58 @@ EJEMPLO - OBTENER CONFIGURACIÓN DE ITEMS2:
 - zuul:INFO [servicio-zuul-server,8a4934ab62e55fb3,8a4934ab62e55fb3,true]
 - items2:		INFO [servicio-items2,8a4934ab62e55fb3,771942ef2cd3f62f,true]       
   
+------------------------------------------------------------------------------------------------------------------------------------------------
+HERRAMIENTA ZIPKIN:
+https://zipkin.io/
 
+**** PARA VER EL CÓDIGO OFICIAL EN GITHUB:
+Página principal (https://zipkin.io/) > Link "The source code is on GitHub as openzipkin/zipkin" (https://github.com/openzipkin/zipkin/)
+- Storage Component por defecto es "In-Memory". También se puede utilizar Cassandra, ElasticSearch o MySQL.
 
+**** DESCARGA:
+Quickstart guide (https://zipkin.io/pages/quickstart) : explica cuáles son as 3 formas para obtener esta herramienta usando Java, Docker o desde 
+el código fuente. Si se está familiarizado con Docker, éste es el método preferido para comenzar. Si no ee está familiarizado con Docker, intente ejecutarlo a través
+de Java o desde la fuente.
 
+**** INSTALACIÓN:
+Independientemente de cómo inicie Zipkin, ir a http://your_host:9411 para encontrar rastros.
 
+** DOCKER: el proyecto Docker Zipkin es capaz de crear imágenes de Docker, proporcionar scripts y un docker-compose.yml para lanzar imágenes prediseñadas. 
+El comienzo más rápido es ejecutar la última imagen directamente:
+
+				docker run -d -p 9411:9411 openzipkin/zipkin
+
+** JAVA: si ya se tiene instalado Java 8 o superior, la forma más rápida de comenzar es buscar la última versión como un archivo ejecutable independiente
+(self-contained executable jar):
+
+				curl -sSL https://zipkin.io/quickstart.sh | bash -s
+				java -jar zipkin.jar
+
+** CÓDIGO FUENTE: Zipkin se puede ejecutar desde la fuente si está desarrollando nuevas funciones. Para lograr esto, deberá obtener la fuente de Zipkin y 
+compilarla.
+
+				# get the latest source
+				git clone https://github.com/openzipkin/zipkin
+				cd zipkin
+				# Build the server and also make its dependencies
+				./mvnw -DskipTests --also-make -pl zipkin-server clean install
+				# Run the server
+				java -jar ./zipkin-server/target/zipkin-server-*exec.jar 
+				
+***** En nuestro caso elegimos la opción de java:
+- Link "latest release" (https://search.maven.org/remote_content?g=io.zipkin&a=zipkin-server&v=LATEST&c=exec) y se desacarga el jar está listo y compilado.
+- El jar descargado es: zipkin-server-2.23.2-exec.jar. 
+
+**** PROCESO DE INSTALACIÓN Y DEPLIEGUE:
+* Poner el jar en la ruta donde se quiere desplegar. 
+* Desde la consola de comandos, colocarse en esa ruta. 
+				cd C:\ruta\Programas\Zipkin_Server
+* Desplegar ejecutando la aplicación: 
+				java -jar zipkin-server-2.23.2-exec.jar
+				(Ejemplo: C:\ruta\Programas\Zipkin_Server>java -jar zipkin-server-2.23.2-exec.jar)
+* En el navegador, para buscar las trazas ir a : http://localhost:9411/zipkin/
+
+------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
