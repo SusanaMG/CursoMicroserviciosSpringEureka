@@ -3,6 +3,7 @@ package com.formacionbdi.springboot.app.oauth.security.event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -21,6 +22,9 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 	private Logger log = LoggerFactory.getLogger(AuthenticationSuccessErrorHandler.class);
 	
 	@Autowired
+	private Environment env;
+	
+	@Autowired
 	private IUsuarioService usuarioService;
 	
 	@Override
@@ -31,9 +35,10 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
  		System.out.println(mensaje);
  		log.info(mensaje);
  		
- 		//Uso este if para forzar y salvar el error que me da al llamarse dos veces al publishAuthenticationSuccess
- 		if(! user.getUsername().equals("frontendapp")) {
- 		//if(user.getUsername().equals("admin") || user.getUsername().equals("susana")) {
+ 		//Uso la condición de este if para forzar y salvar el error que me da al llamarse dos veces al publishAuthenticationSuccess
+ 		//if(! user.getUsername().equals("frontendapp")) {
+  		//if(user.getUsername().equals("admin") || user.getUsername().equals("susana")) {
+ 		if(! user.getUsername().equals(env.getProperty("config.security.oauth.client.id"))) {
 	 		//Reinicio de los intentos de Login en cada inicio de sesión
 	 		Usuario usuario = usuarioService.findByUsername(authentication.getName()); 
 	 		
