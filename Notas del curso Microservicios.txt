@@ -423,7 +423,35 @@ Ejecutar como administrador --> Next --> Next --> Install (puede tardar un poco)
 					- Password: guest
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
+CONFIGURACIÓN MySQL CON ZIPKIN:
 
+Página principal (https://zipkin.io/) --> Link "The source code is on GitHub as openzipkin/zipkin" (https://github.com/openzipkin/zipkin/) -->
+--> En el código se busca "zipkin-server" (https://github.com/openzipkin/zipkin/tree/master/zipkin-server) --> 
+--> En la documentación buscar Storage > MySQL Storage
+--> Modificar con las variables necesarias el script zipkin.cmd:
+				set STORAGE_TYPE=mysql
+				set MYSQL_USER=zipkin
+				set MYSQL_PASS=zipkin 
+--> Desde workbench, crear la base de datos y el usuario definido en el script:
+		* BBDD:
+			- Nombre de la BBDD: zipkin
+			- COLLATION: utf8 - utf8_bin
+		* USUARIO: 
+			* Login:
+				- Login Name: zipkin
+				- Authentication Type: Standard 
+				- Limit to Hosts Matching: localhost
+				- Password: zipkin
+			* Schema Privileges: 
+				- Elegir la BBDD: zipkin
+				- Elegir los permisos: SELECT, INSERT, UPDATE, DELETE, EXECUTE, SHOW VIEW
+			* Crear la BBDD desde un script que ofrece zipkin. Desde la página de zipkin en la sección de Mysql > Link "apply the 
+				schema" (https://github.com/openzipkin/zipkin/blob/master/zipkin-storage/mysql-v1#applying-the-schema) >
+				> Link "schema DDL" (https://github.com/openzipkin/zipkin/blob/master/zipkin-storage/mysql-v1/src/main/resources/mysql.sql) >
+				> Crear las tablas: 1º el CREATE TABLE zipkin_spans > 2º los ALTER TABLE zipkin_spans > 3º el CREATE TABLE zipkin_annotations + los 
+				ALTER TABLE zipkin_annotations > 4º el CREATE TABLE zipkin_dependencies.
+				
+------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
