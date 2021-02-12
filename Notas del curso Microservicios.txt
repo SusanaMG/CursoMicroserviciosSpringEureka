@@ -428,7 +428,7 @@ CONFIGURACIÓN MySQL CON ZIPKIN:
 Página principal (https://zipkin.io/) --> Link "The source code is on GitHub as openzipkin/zipkin" (https://github.com/openzipkin/zipkin/) -->
 --> En el código se busca "zipkin-server" (https://github.com/openzipkin/zipkin/tree/master/zipkin-server) --> 
 --> En la documentación buscar Storage > MySQL Storage
---> Modificar con las variables necesarias el script zipkin.cmd:
+--> Modificar con las variables necesarias el script zipkin.cmd (C:\ruta\Programas\Zipkin_Server):
 				set STORAGE_TYPE=mysql
 				set MYSQL_USER=zipkin
 				set MYSQL_PASS=zipkin 
@@ -451,8 +451,12 @@ Página principal (https://zipkin.io/) --> Link "The source code is on GitHub as
 				> Crear las tablas: 1º el CREATE TABLE zipkin_spans > 2º los ALTER TABLE zipkin_spans > 3º el CREATE TABLE zipkin_annotations + los 
 				ALTER TABLE zipkin_annotations > 4º el CREATE TABLE zipkin_dependencies.
 				
-------------------------------------------------------------------------------------------------------------------------------------------------
+** PRUEBA DEL FUNCIONAMIENTO:
+* Levantar el script zipkin.cmd ejecutándolo desde la consola de comandos desde la ruta conde se encuentra el script y el jar zipkin-server-2.23.2-exec.jar:				
+				C:\ruta\Programas\Zipkin_Server>zipkin.cmd
+* Levantar los microservicios.
 
+------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
