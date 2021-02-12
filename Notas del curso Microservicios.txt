@@ -285,7 +285,7 @@ Es una herrramienta de monitoreo que toma la información de Spring Cloud Sleuth
   |                                             *******************                                                                                      |
   | Cliente Zipkin -----Cli.Zipkin Publica----> * Message Broker  * ----Serv.Zipkin Consume----> Servidor Zipkin <--------- Zipkin UI                    |
   | Microservicio                               *(RabbitMQ, Kafka)*                                              \                                       |
-  |                                             *******************                                               \--------> BBDD (Memory, MySQL,         |
+  |                                             *******************                                               \--------> BBDD (Memory, MySQL,        |
   |																							(traza en una cola                                                           Cassandra, ElasticSerch...) |
   |															                    de mensajes)                                                                                         |                                                                                                   |
    ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -381,6 +381,50 @@ EJEMPLO EN EL PROYECTO PRODUCTOS: Versión 2.4.2 en el pom.xml:
 	</parent>
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
+HERRAMIENTA RabbitMQ:
+https://www.rabbitmq.com/
+
+Es un intermediario en el envío de las trazas de la comunicación entre microservicios, es un broker de mensaje. Es un agente o intermediario entre 
+un productor de mensaje que emite mensajes y un consumidor que los recibe y los consume. RabbitMQ maneja un canal o evento donde tanto productor 
+como consumidor se tienen que suscribir a este canal. 
+
+   ----------------------------------------------------------------------------------------------------------
+  |															                                                                             |
+  |															              RabbitMQ Broker                                                |															                                                                         																                                                                         
+  |                                *****************************************                                 |
+  | Microservicios --------------> * Exchange --------------> Queue zipkin * --------------> Servidor Zipkin |
+  |   Productores                  *                                       *                    Consumidor   |
+  |                                *****************************************                                 |
+   ----------------------------------------------------------------------------------------------------------
+
+**** DESCARGA:
+Página principal (https://www.rabbitmq.com/) --> Link "Get Started"(https://www.rabbitmq.com/#getstarted) --> 
+--> Download + Installation (https://www.rabbitmq.com/download.html) --> Downloading and Installing RabbitMQ: Windows: Chocolatey or Installer (recommended) 
+(https://www.rabbitmq.com/install-windows.html#downloads) --> Using the Installer > Direct Downloads > Installer for Windows systems (from GitHub): 
+rabbitmq-server-3.8.11.exe --> Se descarga el ejecutable (rabbitmq-server-3.8.11.exe).
+
+**** DESCARGA LENGUAJE ERLANG:
+Página principal (https://www.erlang.org/) --> Downloads (https://www.erlang.org/downloads) --> Link "OTP 23.2 Windows 64-bit Binary File (109672744)" --> 
+--> Se descarga el ejecutable (otp_win64_23.2.exe).
+
+**** INSTALACIÓN LENGUAJE ERLANG:
+Ejecutar como administrador --> Next --> Next --> Install (puede tardar un poco).
+
+**** INSTALACIÓN RabbitMQ:  
+* Necesita que previamente se descargue el lenguaje Earlang.
+* Ejecutar como administrador --> Next --> Install.
+* Crear las variables de entorno - variables de sistema - En la variable Path añadir: 
+				C:\Program Files\RabbitMQ Server\rabbitmq_server-3.8.11\sbin
+* Desde la consola de comandos, en modo administrador, desde cualquier ruta para instalar los 3 plugins que necesita:
+				rabbitmq-plugins enable rabbitmq_management
+* En el navegador, ir a : http://localhost:15672
+				* CREDENCIALES: 
+					- Username: guest
+					- Password: guest
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
